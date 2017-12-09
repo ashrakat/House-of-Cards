@@ -105,7 +105,10 @@ public class House {
 
 	
 
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 6a80f21ab2143ee79dfbbfe4e8cbc51334d90cda
 	
 
 }package Models;
