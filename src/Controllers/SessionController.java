@@ -41,7 +41,7 @@ public class SessionController extends HttpServlet {
 				catch(ClassNotFoundException e){
 					e.printStackTrace();
 				}
-		   String url = "jdbc:mysql://localhost:3306/accounts";
+		   String url = "jdbc:mysql://localhost:3306/ai";
 		   String user = "root";
 		   String password = "shosho";
 		   Con = (Connection) DriverManager.getConnection(url, user, password);
@@ -49,24 +49,23 @@ public class SessionController extends HttpServlet {
 	   }
 	   
 	   // check for username and mail for sign up to not be repeated
-	   public boolean checkUserNameAndMail( HttpServletRequest request, String email , String userName) {
-		  HashMap<String , HttpSession> sessionsManager = (HashMap<String , HttpSession>) request.getServletContext().getAttribute("sessionManager");
-		// iterate on map till you find the target email and password
-		  for (Map.Entry<String, HttpSession> entry : sessionsManager.entrySet())
-		  {
-			  if(entry.getValue().getAttribute("session_UserName").equals(userName) ||entry.getValue().getAttribute("session_Email").equals(email)) 
-        	    return false;   // found
-          }
-          return true;   // unique
-		   
+	   public boolean checkUserNameAndMail( HttpServletRequest request, String email , String userName) throws SQLException {
+		  SqlConnection();
+		   RS =  Stmt.executeQuery( "SELECT * from User where email =  '"+email+"' OR UserName = '"+userName+"'"); 
+		   boolean check = RS.next();
+          if(check == false)    // empty
+            return true;   // unique
+          else
+        	return false;  
 	   }
        
 	   
-	   public boolean checkmailAndpassword(String email , String password) throws SQLException {
+	   public boolean checkusernameAndpassword(String username , String password) throws SQLException {
 		   // iterate on map till you find the matched mail and password
 		   SqlConnection();  
-		  RS =  Stmt.executeQuery( "SELECT * from User where mail =  '"+email+"' and password = '"+password+"'"); 
-		  if(RS != null)
+		  RS =  Stmt.executeQuery( "SELECT * from User WHERE userName =  '"+username+"' AND password = '"+password+"'"); 
+		  boolean check = RS.next();
+		  if(check == true)   // found the result has rows
 		  {
 			 return true;  // in the system and matched 
 		  }
@@ -77,57 +76,90 @@ public class SessionController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	// All about login process	
-	 String email = request.getParameter("email");
-	 String pass = request.getParameter("password");	
-	 try {
-		if(checkmailAndpassword(email, pass)) {
-			response.sendRedirect("Home.jsp");
+	 String username = request.getParameter("userName");
+	 String pass = request.getParameter("password");
+	 HashMap<String , HttpSession> sessionsManager = (HashMap<String , HttpSession>)request.getServletContext().getAttribute("sessionManager");
+
+	 if(request.getParameter("logout") != null)   // logout is active
+	 {
+	     if(sessionsManager == null)
+	    	 request.getSession().invalidate();
+	     else {
+		   sessionsManager.remove(request.getSession().getId());
+		   request.getServletContext().setAttribute("sessionManager", sessionsManager);
+		   request.getSession().setMaxInactiveInterval(0);
+	       request.getSession().invalidate();
+		   Cookie[] cookies = request.getCookies();
+		   for (Cookie cookie : cookies) {
+		    	cookie.setMaxAge(0);
+		    	response.addCookie(cookie);
+		     }
+	     }
+		  response.sendRedirect("Home.jsp");
+	 }
+	 else {  // log in is active
+	  try{
+		if(checkusernameAndpassword(username, pass)) {
 			 HttpSession logInsession = request.getSession(true);
-			 logInsession.setAttribute("email", email);
-		}
-		   
-		 else
+			 logInsession.setAttribute("userName", username);
+			 logInsession.setMaxInactiveInterval(5*60);
+			 sessionsManager.put(logInsession.getId(), logInsession);
+			 request.getServletContext().setAttribute("sessionManager", sessionsManager);
+			 Cookie MyCurrentSession = new Cookie ("sessionId",logInsession.getId());
+			 MyCurrentSession.setMaxAge(5*60);
+			 response.addCookie(MyCurrentSession);
+			 response.sendRedirect("Home.jsp");
+		 }
+		    
+		else
 			response.sendRedirect("logIn.jsp");
-	} catch (SQLException e) {
+	  } catch (SQLException e) {
 		e.printStackTrace();
-	}
+	    }
 		
 	}
+ }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	// Sign up process
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String pass = request.getParameter("password");
-		String phone = request.getParameter("phoneNumber");
+		String phone = request.getParameter("phone");
 		String name = request.getParameter("name");
 		String username = request.getParameter("userName");
-        if(checkUserNameAndMail(request,email ,username)) {
-		 HttpSession sessionn = request.getSession(true);
-		 sessionn.setAttribute("session_Email", email);
-	     sessionn.setAttribute("session_Pass", pass);
-	     sessionn.setAttribute("session_UserName", username);
-	     sessionn.setMaxInactiveInterval(60);
-	     HashMap<String , HttpSession> sessionsManager = (HashMap<String , HttpSession>) request.getServletContext().getAttribute("sessionManager");
-	     sessionsManager.put(sessionn.getId(), sessionn);
-	   	 request.getServletContext().setAttribute("sessionManager", sessionsManager);
-         Cookie MyCurrentSession = new Cookie ("sessionId",sessionn.getId());
-         MyCurrentSession.setMaxAge(60);
-         response.addCookie(MyCurrentSession);
-         try {
-			SqlConnection();
-			Stmt.executeUpdate( "insert into User values ('"+sessionn.getId()+"', '"+email+"', '"+pass+"', '"+phone+"' , '"+name+"', '"+username+"')");
-			 //RS = Stmt.executeQuery("SELECT * FROM users;");
-         } catch (SQLException e) {
-	    	e.printStackTrace();
-		 }
-		
-         response.sendRedirect("logIn.jsp");
-        }
-        else {
-         response.sendRedirect("longInUp.jsp");
-        }
+        try {
+			if(checkUserNameAndMail(request,email ,username)) {
+			 try {
+				SqlConnection();
+				Stmt.executeUpdate( "insert into User values ('"+username+"' , '"+name+"' ,'" +email+"', '"+pass+"', '"+phone+"', 'Normal')");
+			 } catch (SQLException e) {
+				e.printStackTrace();
+			 }
+			
+			 response.sendRedirect("logIn.jsp");
+			}
+			else {
+			 response.sendRedirect("logInUp.jsp");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+    protected void dologout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		// As in log out we only remove cookies and sessions we don't remove from database it's not an deactivate
+	    HashMap<String , HttpSession> search = (HashMap<String , HttpSession>)request.getServletContext().getAttribute("sessionManager");
+	    search.remove(request.getSession().getId());
+	    request.getServletContext().setAttribute("sessionManager", search);
+	    request.getSession().setMaxInactiveInterval(0);
+	    Cookie[] cookies = request.getCookies();
+	    for (Cookie cookie : cookies) {
+	    	cookie.setMaxAge(0);
+	    	 response.addCookie(cookie);
+	     }
+	  response.sendRedirect("Home.jsp");  
 	}
 
 }
+

@@ -6,7 +6,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+<link rel="stylesheet" href="bootstrap_slate.css">
+ <link rel="stylesheet" href="style.css">
+ <script src="jquery-2.1.4.min.js"></script>
+<title>HouseOfCard</title>
 </head>
 <body>
 	<%
@@ -16,7 +20,7 @@
 	catch(ClassNotFoundException e){
 		e.printStackTrace();
 	}
-	String url = "jdbc:mysql://localhost:3306/accounts";
+	String url = "jdbc:mysql://localhost:3306/ai";
     String user = "root";
     String password = "shosho";
     Connection Con = null;
@@ -41,17 +45,11 @@
    if(cookies == null) // is not created yet
    {
 	  request.getSession(true);
-	%>      
-	<form  action = "SessionController" method = "GET">
-	 Email :<input type ="text" name = "email">
-	 <br>
-	 Password :<input type ="password" name = "password">
-	 <br>
-	 <input type = "submit" name = "submit"  value = "login">
-	</form>
-	<%
+	%>  
+	<div id = "form"></div>
+   <%
+  
    }
-   
   else {
 	HashMap<String , HttpSession> sessions = ( HashMap<String , HttpSession> )application.getAttribute("sessionManager");
 	if(sessions.isEmpty()){   // sessionManager doesn't exist
@@ -61,17 +59,10 @@
 		    	 response.addCookie(cookie);
 		  }
 	  }
-		%>      
-		<form  action = "SessionController" method = "GET">
-		 Email:<input type ="text" name = "email">
-		 <br>
-		 Password :<input type ="password" name = "password">
-		 <br>
-		 <input type = "submit" name = "submit"  value = "login">
-		</form>
-    	 
-		<%
-   }
+	 %>      
+      <div id ="form"></div>
+	  <%
+    }
 	else{  // exist
 	  Cookie myCookie = null;
 	  for (int i = 0; i < cookies.length; i++) {
@@ -90,16 +81,9 @@
 		    	 response.addCookie(cookie);
 		  }
        }
-    	 %>      
-    	 <form  action = "SessionController" method = "GET">
-    		Email :<input type ="text" name = "email">
-    		 <br>
-    		Password :<input type ="password" name = "password">
-    		 <br>
-    		<input type = "submit" name = "submit"  value = "login">
-    	</form>
-    		
-    	<%
+    %>      
+      <div id ="form"></div>    		
+    <%
      }
      else{
     	   // go to the home view with his data
@@ -110,5 +94,88 @@
       }  
     }
  %>
+ 
+   <template id = "signin">  
+     <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+           <a class="navbar-brand" href="Home.jsp" ><img src="house1.png"></a>        
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <!-- <li><a href="Home.jsp">Home</a></li> -->
+              <li><a href="UserView.jsp"><%= getUserName(request) %></a></li>
+            </ul>
+		 <ul class="nav navbar-nav navbar-right">
+         <li><a href="logInUp.jsp">Signin/up</a></li>
+          <li><a href="SessionController?logout=logout">Logout</a></li>
+         </ul>
+        </div>
+       </div>
+    </nav> 
+    
+	<div class = "container">
+    <div class="modal-dialog" style = "margin-top:100px;" id = "LogIn">	
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title"><center class = "register">Log In</center></div>
+		</div>
+		<br>
+		<center>
+    <div class ="row">
+        <div class = "col-md-5 col-md-offset-1">
+	  <form action="SessionController" method="GET">
+	    
+	  	   
+	   
+      <div class="input-group">
+             <span class="input-group-addon" id = "sizing-addon2"><i>&#64;</i></span>
+          <input type="text" class="form-control"  name = "userName" placeholder="UserName">
+        </div>
+	   
+	  	<br>	   
+	  <div class="input-group">
+	  <span class="input-group-addon"><i>&#128273;</i></span>
+          <input type="password" class="form-control" name = "password" placeholder="Password">
+        </div>
+	<br>
+	 <button value="login" name="Submit" class="btn btn-primary btn-lg">Log In</button>
+		<br><br> 
+	  </form>
+	 </div>
+	  <div class ="col-md-3">
+          <img class="MidImg" alt="" src="house1.png">
+        </div>
+	 </div>
+	</center>
+	</div>
+	</div>
+    </div>
+   </template>
+	
+	
+	<%!
+    String getUserName(HttpServletRequest request){
+    	if(request.getSession().getAttribute("userName") == null)
+    		return "";
+    	else{
+    		return (String)request.getSession().getAttribute("userName");
+    	}
+    }
+    %>
+    
+	<script>
+   	 var template = document.querySelector('#signin');
+     var clone = document.importNode(template.content, true);
+     var host = document.querySelector('#form');
+     host.appendChild(clone);
+	</script>
+	
 </body>
 </html> 

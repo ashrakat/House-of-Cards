@@ -4,7 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <link rel="stylesheet" href="styles/bootstrap.min.css">
+ <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+ <link rel="stylesheet" href="bootstrap_slate.css">
+ <link rel="stylesheet" href="style.css">
+ <script src="jquery-2.1.4.min.js"></script>
+ 
 <title>HouseOfCards</title>
 </head>
 <body>
@@ -17,19 +21,30 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-           <!-- <a class="navbar-brand" href="#" ><p style ="color:gray;" th:if="${user.username}" th:inline="text"> [[${user.username}]]  </p> </a> -->
+            
+            <a class="navbar-brand" href="Home.jsp" ><img src="house1.png"></a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li><a href="Home.jsp">Home</a></li>
-              <li><a href="UserView.jsp">profile</a></li>
+              <!-- <li><a href="Home.jsp">Home</a></li> -->
+              <li><a href="UserView.jsp"><%= getUserName(request) %></a></li>
             </ul>
 		 <ul class="nav navbar-nav navbar-right">
          <li><a href="logInUp.jsp">Signin/up</a></li>
-         <li><a href="#">Sign out</a></li>
+          <li><a href="SessionController?logout=logout">Logout</a></li>
          </ul>
         </div>
        </div>
     </nav>
+    
+    <%!
+    String getUserName(HttpServletRequest request){
+    	if(request.getSession().getAttribute("userName") == null)
+    		return "";
+    	else{
+    		return (String)request.getSession().getAttribute("userName");
+    	}
+    }
+    %>
 </body>
 </html>
