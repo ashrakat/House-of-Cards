@@ -51,7 +51,7 @@ public class SessionController extends HttpServlet {
 	   // check for username and mail for sign up to not be repeated
 	   public boolean checkUserNameAndMail( HttpServletRequest request, String email , String userName) throws SQLException {
 		  SqlConnection();
-		   RS =  Stmt.executeQuery( "SELECT * from User where email =  '"+email+"' OR UserName = '"+userName+"'"); 
+		   RS =  Stmt.executeQuery( "SELECT * from users where email =  '"+email+"' OR username = '"+userName+"'"); 
 		   boolean check = RS.next();
           if(check == false)    // empty
             return true;   // unique
@@ -63,7 +63,7 @@ public class SessionController extends HttpServlet {
 	   public boolean checkusernameAndpassword(String username , String password) throws SQLException {
 		   // iterate on map till you find the matched mail and password
 		   SqlConnection();  
-		  RS =  Stmt.executeQuery( "SELECT * from User WHERE userName =  '"+username+"' AND password = '"+password+"'"); 
+		  RS =  Stmt.executeQuery( "SELECT * from users WHERE username =  '"+username+"' AND pass = '"+password+"'"); 
 		  boolean check = RS.next();
 		  if(check == true)   // found the result has rows
 		  {
@@ -131,7 +131,7 @@ public class SessionController extends HttpServlet {
 			if(checkUserNameAndMail(request,email ,username)) {
 			 try {
 				SqlConnection();
-				Stmt.executeUpdate( "insert into User values ('"+username+"' , '"+name+"' ,'" +email+"', '"+pass+"', '"+phone+"', 'Normal')");
+				Stmt.executeUpdate( "insert into users values ('"+username+"' , '"+name+"' ,'Normal','" +email+"', '"+phone+"', '"+pass+"' ,'NULL')");
 			 } catch (SQLException e) {
 				e.printStackTrace();
 			 }

@@ -140,7 +140,7 @@ public class UserController extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		Normal user = (Normal) session.getAttribute("CurrentUser");
 		
-		session.setAttribute("ListOfHouse", user.getListOfHouses());
+		session.setAttribute("ListOfHouse", user.getListOfNotifications());
 		
 		try {
 			response.sendRedirect("showProperties.jsp");
