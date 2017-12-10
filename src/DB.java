@@ -14,7 +14,8 @@ import Models.*;
 public class DB {
 	/* Add/Insert **/
 	/** Missing user photo */
-	public static void addUser(Normal user) {
+	//Checked
+	public void addUser(Normal user) {
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -46,7 +47,8 @@ public class DB {
 	}
 
 	/** Missing house photo **/
-	public int addHouse(House house) {
+	//Checked
+	public static int addHouse(House house) {
 		Connection conn = null;
 		int id = 0;
 		try {
@@ -71,9 +73,9 @@ public class DB {
 
 			int executeUpdate = pstmt.executeUpdate();
 
-			query = "SELECT  id  from property where size = " + house.getSize() + "and numOfFloor = "
-					+ house.getNumOfFloors() + " and rate = " + house.getRate() + "and username = '"
-					+ house.getOwner().getUserName() + "' and  description = '" + house.getDescription()
+			query = "SELECT id  from property where size = " + house.getSize() + " and numOfFloor = "
+					+ house.getNumOfFloors() + " and rate = " + house.getRate() + " and username = '"
+					+ house.getOwner().getUserName() + "' and description = '" + house.getDescription()
 					+ "' and forWhat = '" + house.getForWhat() + "' and status = '" + house.getStatus()
 					+ "' and type = '" + house.getType() + "' ;";
 
@@ -86,8 +88,8 @@ public class DB {
 		}
 		return id;
 	}
-
-	public void addNotfication(Normal user, Notifications noitify) {
+	//Checked
+	public static void addNotification(Normal user, Notifications noitify) {
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -141,8 +143,9 @@ public class DB {
 
 	}
 
-	/** Select ***/
-	public HashMap<String, String> allUserName() {
+	/*Select ***/
+	//Checked
+	public  HashMap<String, String> allUserName() {
 		HashMap<String, String> allUsers = new HashMap<String, String>();
 		Connection conn = null;
 		try {
@@ -159,6 +162,7 @@ public class DB {
 				String username = rs.getString("username");
 				String pass = rs.getString("pass");
 				allUsers.put(username, pass);
+				System.out.println("UserName : " + username + " , PassWord: " + pass);
 			}
 			conn.close();
 		} catch (SQLException e) {
@@ -167,8 +171,8 @@ public class DB {
 
 		return allUsers;
 	}
-
-	public ArrayList<House> allHouses() {
+	//Checked
+	public static ArrayList<House> allHouses() {
 		ArrayList<House> houses = new ArrayList<House>();
 		String Name = "";
 		Connection conn = null;
@@ -205,8 +209,8 @@ public class DB {
 
 		return houses;
 	}
-
-	public ArrayList<House> allUserHouses(User user) {
+	//Checked
+	public static ArrayList<House> allUserHouses(User user) {
 
 		ArrayList<House> houses = new ArrayList<House>();
 		Connection conn = null;
@@ -218,7 +222,7 @@ public class DB {
 			conn = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
-			String query = "SELECT  FROM property where username = '" + user.getUserName() + "' ;";
+			String query = "SELECT * FROM property where username = '" + user.getUserName() + "' ;";
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
@@ -255,7 +259,7 @@ public class DB {
 			conn = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
-			String query = "SELECT  FROM comment where id = " + house.getId() + " ;";
+			String query = "SELECT * FROM comment where id = " + house.getId() + " ;";
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				Comment comment = new Comment();
@@ -288,7 +292,7 @@ public class DB {
 			conn = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
-			String query = "SELECT  FROM comment where username = '" + user.getUserName() + "' ;";
+			String query = "SELECT * FROM comment where username = '" + user.getUserName() + "' ;";
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				Comment comment = new Comment();
@@ -306,8 +310,8 @@ public class DB {
 		}
 		return comments;
 	}
-
-	public ArrayList<Notifications> allUserNotfication(User user) {
+	//Checked
+	public static ArrayList<Notifications> allUserNotfication(User user) {
 		ArrayList<Notifications> notifications = new ArrayList<Notifications>();
 		Connection conn = null;
 		try {
@@ -318,7 +322,7 @@ public class DB {
 			conn = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
-			String query = "SELECT  FROM notfication where username = '" + user.getUserName() + "' ;";
+			String query = "SELECT * FROM notfication where username = '" + user.getUserName() + "' ;";
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				Notifications notification = new Notifications();
@@ -335,7 +339,8 @@ public class DB {
 	}
 
 	/** Missing retrieve photo **/
-	public User getCertianUserInfo(String userName) {
+	//Checked
+	public static User getCertianUserInfo(String userName) {
 		User user = new Normal();
 		Connection conn = null;
 		try {
@@ -346,11 +351,13 @@ public class DB {
 			conn = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
-			String query = "SELECT  FROM users where username = '" + userName + "' ;";
+			String query = "SELECT * FROM users where username = '" + userName + "' ;";
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				user.setUserName(rs.getString("username"));
+				String Name =rs.getString("username");
+				System.out.println("Naaaaaaaame :" + Name);
+				user.setUserName(Name);
 				user.setName(rs.getString("name"));
 				user.setType(rs.getString("user_type"));
 				user.setEmail(rs.getString("email"));
@@ -374,7 +381,6 @@ public class DB {
 	}
 
 	/* Update **/
-	/*** Update **/
 	public void UpdateUser(User user) {
 		Connection conn = null;
 		try {
@@ -438,7 +444,6 @@ public class DB {
 	}
 
 	/* Delete **/
-	/*** Delete **/
 	public void DeleteComment(House house, User user) {
 		Connection conn = null;
 		try {
@@ -462,17 +467,27 @@ public class DB {
 	
 	public static void main (String[] args)
 	{
-	/*	Normal user = new Normal () ; 
-		user.setName("Nourhan Mohamed Hassan");
-		user.setUserName("NoorMohamed");
-		user.setEmail("noormohamed.28.96@gmail.com");
-		user.setPhone("01121983752");
-		user.setPassword("noor92asdfg");
-		user.setType("Normal");*/
-		File image = new File("F:\\Anime\\1.jpg");
-		System.out.println(image.getPath());
-		//user.setPic(image);
-
-		//addUser(user);
+		User Newuser =  getCertianUserInfo("NoorMohamed");
+		System.out.println("Normal : "+Newuser.getName()+" , "+Newuser.getEmail()+" , "+Newuser.getPhone());
+		
+		/*House house = new House () ; 
+		house.setSize(900);
+		house.setNumOfFloors(4);
+		house.setRate(9500.5);
+		house.setOwner(Newuser);
+		house.setDescription("New mini  Villa with only one garden:(" );
+		house.setForWhat("Rent");
+		house.setStatus("Finish");
+		house.setType("Studio");		
+		
+		house.setId(addHouse(house));
+		System.out.println(house.getId());
+		*/
+		
+		
+		ArrayList<Notifications> notifies  = allUserNotfication(Newuser); 
+		System.out.println("Sizeeeeee : " + notifies.size());
+		System.out.println(notifies.get(0).getBody());
+		
 	}
 }
