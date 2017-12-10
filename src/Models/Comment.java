@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Comment {
 	
+	String Link ;
 	String body;
 	User owner;
 	Date date;
@@ -26,5 +27,12 @@ public class Comment {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	public String getLink() {
+		return Link;
+	}
+	public void setLink(String link) {
+		Link = link;
+	}
+	
 	
 }
