@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,7 +14,7 @@ import Models.*;
 public class DB {
 	/* Add/Insert **/
 	/** Missing user photo */
-	public void addUser(Normal user) {
+	public static void addUser(Normal user) {
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -21,7 +25,7 @@ public class DB {
 					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 
 			Statement stmt = conn.createStatement();
-			String query = "INSERT INTO users ( username, name , user_type, email , phone , pass  ) VALUES (?,?,?,?,?,?);";
+			String query = "INSERT INTO users ( username, name , user_type, email , phone , pass ,pic  ) VALUES (?,?,?,?,?,?,?);";
 			PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, user.getUserName());
 			pstmt.setString(2, user.getName());
@@ -29,12 +33,14 @@ public class DB {
 			pstmt.setString(4, user.getEmail());
 			pstmt.setString(5, user.getPhone());
 			pstmt.setString(6, user.getPassword());
-
-			// pstmt.setBlo ( 7, user.getPic());
+			/*File image = new File(path);*/
+			FileInputStream fis = new FileInputStream ( user.getPic() );
+			//pstmt.setBlob(7, fis);
+			pstmt.setBinaryStream (7, fis, (int) user.getPic().length() );
 
 			int executeUpdate = pstmt.executeUpdate();
 			conn.close();
-		} catch (SQLException e) {
+		} catch (SQLException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -328,7 +334,7 @@ public class DB {
 		return notifications;
 	}
 
-	/** Missing photo **/
+	/** Missing retrieve photo **/
 	public User getCertianUserInfo(String userName) {
 		User user = new Normal();
 		Connection conn = null;
@@ -350,6 +356,8 @@ public class DB {
 				user.setEmail(rs.getString("email"));
 				user.setPhone(rs.getString("phone"));
 				user.setPassword(rs.getString("pass"));
+				InputStream imgStream = rs.getBinaryStream("pic"); 
+
 				// user.setPic(pic);
 			}
 			conn.close();
@@ -451,5 +459,20 @@ public class DB {
 		}
 
 	}
+	
+	public static void main (String[] args)
+	{
+	/*	Normal user = new Normal () ; 
+		user.setName("Nourhan Mohamed Hassan");
+		user.setUserName("NoorMohamed");
+		user.setEmail("noormohamed.28.96@gmail.com");
+		user.setPhone("01121983752");
+		user.setPassword("noor92asdfg");
+		user.setType("Normal");*/
+		File image = new File("F:\\Anime\\1.jpg");
+		System.out.println(image.getPath());
+		//user.setPic(image);
 
+		//addUser(user);
+	}
 }
