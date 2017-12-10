@@ -1,5 +1,5 @@
+package Models;
 
-import Models.Advertise ; 
 import java.util.*;
 
 public class Fillteration {

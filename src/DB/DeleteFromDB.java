@@ -1,4 +1,4 @@
-package DataBase;
+package DB;
 import Models.*;
 
 import java.sql.Connection;

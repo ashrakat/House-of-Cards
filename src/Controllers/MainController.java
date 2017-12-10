@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import DB.SelectFromDB;
-import Models.House;
+import Models.Advertise;
+
 
 @WebServlet("/MainController")
 public class MainController extends HttpServlet {
@@ -34,7 +35,7 @@ public class MainController extends HttpServlet {
 	}
 	
 	protected void showAllHouses(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		ArrayList<House> houses = SelectFromDB.allHouses();
+		ArrayList<Advertise> houses = SelectFromDB.allHouses();
 		request.setAttribute("houses", houses);
 		System.out.println("Here we go " + houses.size());
 		response.sendRedirect("Home.jsp");

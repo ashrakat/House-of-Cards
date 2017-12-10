@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Models.House;
+import Models.Advertise;
 import Models.Normal;
 import Models.User;
 
@@ -109,7 +109,7 @@ public class UserController extends HttpServlet {
 	public void addHouse(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(true);
 		Normal user = (Normal) session.getAttribute("userName");
-		House house = (House) session.getAttribute("NewHouse");
+		Advertise house = (Advertise) session.getAttribute("NewHouse");
 
 		user.addHouse(house);
 		/** show all of his House **/
