@@ -1,5 +1,6 @@
+package Models;
 
-import Models.House ; 
+import Models.House; 
 import java.util.*;
 
 public class Fillteration {
@@ -14,7 +15,7 @@ public class Fillteration {
 	}
 	
 	/**when we put Location ask your team **/
-	public ArrayList<House> fillterByArea(double Area ) {	
+	public void fillterByArea(double Area ) {	
 	
 	}
 

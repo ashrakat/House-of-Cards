@@ -108,7 +108,7 @@ public class UserController extends HttpServlet {
 
 	public void addHouse(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(true);
-		Normal user = (Normal) session.getAttribute("CurrentUser");
+		Normal user = (Normal) session.getAttribute("userName");
 		House house = (House) session.getAttribute("NewHouse");
 
 		user.addHouse(house);
@@ -124,7 +124,7 @@ public class UserController extends HttpServlet {
 	public void Logout(HttpServletRequest request, HttpServletResponse response) {
 		
 		HttpSession session = request.getSession(true);
-		session.removeAttribute("CurrentUser");
+		session.removeAttribute("userName");
 		
 		try {
 			response.sendRedirect("home.jsp");
@@ -138,7 +138,7 @@ public class UserController extends HttpServlet {
 
 	public void showOwnHouses(HttpServletRequest request, HttpServletResponse response){
 		HttpSession session = request.getSession(true);
-		Normal user = (Normal) session.getAttribute("CurrentUser");
+		Normal user = (Normal) session.getAttribute("userName");
 		
 		session.setAttribute("ListOfHouse", user.getListOfNotifications());
 		
@@ -153,7 +153,7 @@ public class UserController extends HttpServlet {
 
 	public void showAllNotification(HttpServletRequest request, HttpServletResponse response){
 		HttpSession session = request.getSession(true);
-		Normal user = (Normal) session.getAttribute("CurrentUser");
+		Normal user = (Normal) session.getAttribute("userName");
 		
 		session.setAttribute("ListOfNotifications", user.getListOfNotifications());
 		
@@ -169,7 +169,7 @@ public class UserController extends HttpServlet {
 	public void addPreferences (HttpServletRequest request, HttpServletResponse response){
 		
 		HttpSession session = request.getSession(true);
-		Normal user = (Normal) session.getAttribute("CurrentUser");
+		Normal user = (Normal) session.getAttribute("userName");
 		String preference =  (String) session.getAttribute("NewPreference");
 
 		user.addPreferences(preference);
@@ -187,7 +187,7 @@ public class UserController extends HttpServlet {
 	public void showAllPreferences(HttpServletRequest request, HttpServletResponse response){
 		
 		HttpSession session = request.getSession(true);
-		Normal user = (Normal) session.getAttribute("CurrentUser");
+		Normal user = (Normal) session.getAttribute("userName");
 		
 		session.setAttribute("ListOfPreferences", user.getPreferences());
 		

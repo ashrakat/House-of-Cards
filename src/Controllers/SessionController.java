@@ -61,7 +61,6 @@ public class SessionController extends HttpServlet {
        
 	   
 	   public boolean checkusernameAndpassword(String username , String password) throws SQLException {
-		   // iterate on map till you find the matched mail and password
 		   SqlConnection();  
 		  RS =  Stmt.executeQuery( "SELECT * from users WHERE username =  '"+username+"' AND pass = '"+password+"'"); 
 		  boolean check = RS.next();

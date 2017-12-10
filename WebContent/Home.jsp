@@ -1,3 +1,7 @@
+<%@page import="java.util.*"%>
+<%@page import="Models.House"%>
+<%@page import="DB.SelectFromDB"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -37,6 +41,37 @@
        </div>
     </nav>
     
+    <div class = "container">
+    <%
+    if(request.getAttributeNames().toString().contains("houses") == true){
+    	RequestDispatcher rd= request.getRequestDispatcher("MainController?showHouses=showHouses");
+		rd.forward(request,response);
+    }
+    
+    else{
+     ArrayList<House> houses =(ArrayList<House>) request.getAttribute("houses"); 
+     if(houses != null){
+     for(int i = 0 ; i < houses.size() ; i++){
+      %>
+      <div class = "row">
+        <div class = "col-md-3 col-sm-12">
+         <img alt="" src="">
+         <p> <%= houses.get(i).getForWhat() %></p>
+         <p> <%= houses.get(i).getType() %></p>
+         <p> <%= houses.get(i).getNumOfFloors() %></p>
+         <p> <%= houses.get(i).getStatus() %></p>
+         <p> <%= houses.get(i).getRate() %></p>
+        </div>
+      </div>
+      <% 
+      }
+     }
+    }
+     %>
+    
+    </div>
+    
+    
     <%!
     String getUserName(HttpServletRequest request){
     	if(request.getSession().getAttribute("userName") == null)
@@ -45,6 +80,19 @@
     		return (String)request.getSession().getAttribute("userName");
     	}
     }
+    
+    void getHouses(HttpServletRequest request){
+    	ArrayList<House> houses = SelectFromDB.allHouses();
+		request.setAttribute("houses", houses);
+    }
     %>
+    <script>
+   // $(document).ready(function() {
+   // 	 console.log("here weeeeeeeeeeee");
+   // 	 window.location.href= "MainController?showHouses=showHouses"; 	
+   //  });
+    
+    </script>
+    
 </body>
 </html>
