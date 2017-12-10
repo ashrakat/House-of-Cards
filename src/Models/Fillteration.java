@@ -15,8 +15,13 @@ public class Fillteration {
 	}
 	
 	/**when we put Location ask your team **/
-	public void fillterByArea(double Area ) {	
+	public void fillterByArea(double Area) {	
+	}
 	
+	public ArrayList<House> fillterByArea(double Area, ArrayList<House>  listOfHouse ) {	
+		ArrayList<House> newList = new ArrayList<House>();
+
+		return newList ; 
 	}
 
 	public ArrayList<House> fillterBySize(int size , ArrayList<House>  listOfHouse ) {

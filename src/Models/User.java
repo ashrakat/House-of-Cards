@@ -1,18 +1,21 @@
 package Models;
 
+
+import java.io.File;
+
 public class User {
 	
 	String name;
+	String Type; 
 	String userName;
 	String password;
 	String email;
 	String phone;
-	int pic[];
+	File pic;
 	
 	public User() {
 		
 	}
-	
 	public String getName() {
 		return name;
 	}
@@ -43,11 +46,17 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public int[] getPic() {
+	public File getPic() {
 		return pic;
 	}
-	public void setPic(int[] pic) {
+	public void setPic(File pic) {
 		this.pic = pic;
+	}
+	public String getType() {
+		return Type;
+	}
+	public void setType(String type) {
+		Type = type;
 	}
 	
 	
