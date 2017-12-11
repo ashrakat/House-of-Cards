@@ -1,18 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=windows-1256"
 	pageEncoding="windows-1256"%>
+<jsp:include page="navbar.jsp"></jsp:include>
+	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type"
-	content="text/html; charset=windows-1256">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
+<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyDKqm6FfQVWma0atI6iRmLd89IKFkUyDuY"></script>
+<link rel="stylesheet" href="bootstrap_slate.css">
+<link rel="stylesheet" href="style.css">
+<script src="jquery-2.1.4.min.js"></script>
 <title>Add Advertise</title>
-</head>
-
-<script
-	src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyDKqm6FfQVWma0atI6iRmLd89IKFkUyDuY">
-	
-</script>
-
 </head>
 
 <script type="text/javascript">
@@ -63,35 +62,118 @@
 
 <body onload="initialize()">
 
-	<h3>Adding new Advertise!</h3>
-	<br><br>
+ <div class = "container">
 
+    <div class="modal-dialog" id = "AddADV">	
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">
+          <center class = "register">
+           <img style = "max-width:500%; max-height:200px;margin-top:10px;"src="house1.png"><br>
+           Adding new Advertise!
+          </center>
+         </div>
+		</div>
+	 <br>
+	 <center>
+    <div class ="row">
+     <div class = "col-md-5 col-md-offset-3">
 	<form action="AdvertiseController" method="post">
 
-		Advertise Title: <input type="text" name="title" > <br> <br>
-		Description: <input type="text" name="description" > <br> <br>
-		Type: <input type="text" name="type" > <br> <br>
-		Status: <select name="status">
+       <div class="input-group">
+       <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
+	    <input class="form-control" type="text" name="title" placeholder = "Title"> 
+	   </div>
+	   <br>
+	   
+	   <div class="input-group">
+	    <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
+	    <input type="text" class="form-control" name="description" placeholder = "Description">
+	   </div> 
+	   <br> 
+	   
+	   <div class="input-group">
+	    <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
+	    <input type="text" class="form-control"  name="type" placeholder = "Type"> 
+	   </div>
+	   <br>
+	    
+	   <div class="input-group">
+	    <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
+	    <select class="form-control" name="status">
 			<option>Finished</option>
 			<option>Half Finished</option>
 			<option>I know what you did last summer</option>
-			</select> <br> <br>
-		For What: <select name="forWhat" >
+			</select>
+		</div>
+		<br>
+		
+		<div class="input-group">
+		 <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
+	     <select class="form-control" name="forWhat" >
 			<option>Rent</option>
 			<option>Sale</option>
 			<option>I still know what you did last summer</option>
-			</select> <br> <br>
-		Number Of Floors: <input type="text" name="floors" > <br> <br>
-		Size: <input type="text" name="size" > <br> <br>
-		Advertise Main Photo: <input name="mainPhoto" type="file">
-		<input type="submit" value="Upload File" > <br> <br>
-		Other Photos: <input name="otherPhotos" type="file" multiple>
-		<input type="submit" value="Upload Files" > <br> <br>
-		<div id="map" style="width: 320px; height: 480px;"></div>
-		Address: <input id="address" type="text" name="address" > 
-		<input type="button" value="Find" onclick="codeAddress()" > <br> <br>
-		<input type="submit" value="Add Advertise" >
-
+		</select>
+		</div>
+		<br>
+		
+		<div class="input-group">
+		 <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
+		 <input  class="form-control"  type="number" name="floors" placeholder = "# of floors" min = 1>
+		</div>
+		<br>
+		
+		<div class="input-group">
+		 <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
+		 <input  class="form-control" type="text" name="size" placeholder = "Size of the house"> 
+		</div>
+		<br>
+		
+		<div class="input-group">
+		 <input   name="mainPhoto" type="file">
+		</div>
+		<br>
+		
+		<div class="input-group">
+		 <input type="submit" value="Upload File" >
+		</div>
+	    <br>
+	    
+	    <div class="input-group">
+		<input name="otherPhotos" type="file" multiple>
+		</div>
+		<br>
+		
+		<div class="input-group">
+		 <input type="submit" value="Upload Files" >
+		</div> <br> <br>
+		
+		<div class="input-group"> 
+		 <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
+	     <input class="form-control"  id="address" type="text" name="address" placeholder = "Address"> 
+	     </div>
+	     <br>
+	    <input type="button" value="Find" onclick="codeAddress()" > <br> <br>
+		 
+	     <div  id="map" style="width: 320px; height: 480px; margin-left:-30px;"></div>
+	     <br><br>
+	     <button class = "btn btn-lg myAddAdvbtn" type="submit" value="Add Advertise" >Add Advertise</button>
+	     <br><br>
+		
 	</form>
+	</div>
+	</div>
+ </center>
+ </div>
+ </div>
+ </div>
+ <script>
+       
+       $(document).ready(function(){
+         $("#AddADV").fadeIn(1200);   
+       });
+   </script>
+ 
 </body>
 </html>

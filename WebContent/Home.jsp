@@ -1,7 +1,7 @@
 <%@page import="java.util.*"%>
-<%@page import="Models.House"%>
+<%@page import="Models.Advertise"%>
 <%@page import="DB.SelectFromDB"%>
-
+<jsp:include page="navbar.jsp"></jsp:include>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -16,31 +16,13 @@
 <title>HouseOfCards</title>
 </head>
 <body>
-   <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            
-            <a class="navbar-brand" href="Home.jsp" ><img src="house1.png"></a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <!-- <li><a href="Home.jsp">Home</a></li> -->
-              <li><a href="UserView.jsp"><%= getUserName(request) %></a></li>
-            </ul>
-		 <ul class="nav navbar-nav navbar-right">
-         <li><a href="logInUp.jsp">Signin/up</a></li>
-          <li><a href="SessionController?logout=logout">Logout</a></li>
-         </ul>
-        </div>
-       </div>
-    </nav>
+
     
+    <div id = "AddforUser" style = "float:right;"> 
+    <button class = "btn addAdv" onClick = "addAdvertise();" >Add Advertise </button>
+    </div>
+    
+        
     <div class = "container">
     <%
     if(request.getAttributeNames().toString().contains("houses") == true){
@@ -49,7 +31,7 @@
     }
     
     else{
-     ArrayList<House> houses =(ArrayList<House>) request.getAttribute("houses"); 
+     ArrayList<Advertise> houses =(ArrayList<Advertise>) request.getAttribute("houses"); 
      if(houses != null){
      for(int i = 0 ; i < houses.size() ; i++){
       %>
@@ -72,6 +54,7 @@
     </div>
     
     
+    
     <%!
     String getUserName(HttpServletRequest request){
     	if(request.getSession().getAttribute("userName") == null)
@@ -79,19 +62,23 @@
     	else{
     		return (String)request.getSession().getAttribute("userName");
     	}
-    }
-    
-    void getHouses(HttpServletRequest request){
-    	ArrayList<House> houses = SelectFromDB.allHouses();
-		request.setAttribute("houses", houses);
-    }
+     }
     %>
-    <script>
-   // $(document).ready(function() {
-   // 	 console.log("here weeeeeeeeeeee");
-   // 	 window.location.href= "MainController?showHouses=showHouses"; 	
-   //  });
     
+    <script>
+    $(document).ready(function(){
+    	var session = <%= session.getAttribute("userName") %>;
+    	if(session != null){
+          $("#AddforUser").show();	  
+        }
+       else{ 
+       	$("#AddforUser").hide();
+       }
+    });
+    
+    function addAdvertise(){
+    	window.location.href = "AddAdvertise.jsp";
+    }
     </script>
     
 </body>

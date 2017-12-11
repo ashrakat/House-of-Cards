@@ -22,3 +22,24 @@ img{
   max-weight:100%;	
   margin-left:30px;
 }
+
+.addAdv{
+	width:150px;
+	height:50px;
+	background-color:#1c9d95;
+	color: white;
+	margin-right:15px;
+	}
+	
+.addAdv:hover{
+	background-color:#1a8f88;
+}
+
+.myAddAdvbtn{
+	background-color:#1c9d95;
+	color: white;
+}
+
+.myAddAdvbtn:hover{
+	background-color:#1a8f88;
+}	

@@ -23,8 +23,7 @@ public class MainController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("showHouses") != null)
-		{
+		if(request.getParameter("showHouses") != null){
 			showAllHouses(request, response);
 		}
 	}
