@@ -238,6 +238,7 @@ public class SelectFromDB {
 				user.setPassword(rs.getString("pass"));
 				InputStream imgStream = rs.getBinaryStream("pic"); 
 				OutputStream out = null;
+				// new Path saving Photo  
 				out = new FileOutputStream(new File("F:\\Anime\\fromDb.png"));
 				int c = 0;
                                 //write the contents from the input stream to the output stream
@@ -300,5 +301,50 @@ public class SelectFromDB {
 		return advertise;
 	}
 
+	public static boolean checkUserPass (String username , String password ){
+		Connection conn = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException ex) {
+		}
+		try {
+			conn = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+			Statement stmt = conn.createStatement();
+			String query = "SELECT * from users WHERE username =  '"+username+"' and pass = '"+password+"' ;";
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+					return true ; 
+			}
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+    public static boolean CheckemailandUser (String email , String userName ){
+    	Connection conn = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException ex) {
+		}
+		try {
+			conn = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+			Statement stmt = conn.createStatement();
+			String query = "SELECT * from users where email =  '"+email+"' OR username = '"+userName+"' ;";
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+					return false ; 
+			}
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
 
 }

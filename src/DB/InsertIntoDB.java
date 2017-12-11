@@ -11,15 +11,13 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import Models.Comment;
-import Models.Advertise;
-import Models.Normal;
-import Models.Notifications;
+
+import Models.*;
 
 public class InsertIntoDB {
 	/* Add/Insert **/
 	//Checked
-	public static void addUser(Normal user) {
+	public static void addUser(User user) {
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -29,7 +27,7 @@ public class InsertIntoDB {
 			conn = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 
-			String query = "INSERT INTO users ( username, name , user_type, email , phone , pass ,pic  ) VALUES (?,?,?,?,?,?,?);";
+			String query = "INSERT INTO users ( username, name , user_type, email , phone , pass) VALUES (?,?,?,?,?,?);";
 			PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, user.getUserName());
 			pstmt.setString(2, user.getName());
@@ -38,15 +36,15 @@ public class InsertIntoDB {
 			pstmt.setString(5, user.getPhone());
 			pstmt.setString(6, user.getPassword());
 			/*File image = new File(path);*/
-			FileInputStream fis = new FileInputStream ( user.getPic() );
+			//FileInputStream fis = new FileInputStream ( user.getPic() );
 			//pstmt.setBlob(7, fis);
-			pstmt.setBinaryStream (7, fis, (int) user.getPic().length() );
+			//pstmt.setBinaryStream (7, fis, (int) user.getPic().length() );
 
 			int executeUpdate = pstmt.executeUpdate();
 			if(executeUpdate == 1 )
 				System.out.println("Successfully had been add");
 			conn.close();
-		} catch (SQLException | FileNotFoundException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -100,7 +98,7 @@ public class InsertIntoDB {
 		return id;
 	}
 	//Checked
-	public static void addNotification(Normal user, Notifications noitify) {
+	public static void addNotification(User user, Notifications noitify) {
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -125,7 +123,7 @@ public class InsertIntoDB {
 		}
 	}
 	
-	public static void addComment(Normal user, Advertise Advertise, Comment comment) {
+	public static void addComment(User user, Advertise Advertise, Comment comment) {
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
