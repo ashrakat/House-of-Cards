@@ -16,48 +16,50 @@
 </head>
 <body>
 
-    
+   <div class = "row"> 
     <div id = "AddforUser" style = "float:right;"> 
-    <button class = "btn addAdv" onClick = "addAdvertise();" >Add Advertise </button>
+    <a href = "AddAdvertise.jsp"><button class = "btn addAdv">Add Advertise </button></a>
     </div>
-    
+   </div>
         
     <div class = "container">
-
    <%
     if (request.getAttribute("houses") == null){
     	RequestDispatcher rd= request.getRequestDispatcher("MainController?showHouses=showHouses");
 		rd.forward(request,response);
       }
   
-  
     else if(!((ArrayList<Advertise>)request.getAttribute("houses")).isEmpty() || (!((ArrayList<Advertise>)request.getAttribute("houses")).isEmpty())){
 
 		ArrayList<Advertise> houses =(ArrayList<Advertise>) request.getAttribute("houses"); 
         if(houses.size() > 0 ){
-        for(int i = 0 ; i < houses.size() ; i++){
-         %>
-         <div class = "container">
+        	%>
+        <div class = "container">
          <div class = "row">
+         <%
+          for(int i = 0 ; i < houses.size() ; i++){
+         %>
+         
          <a href=<%= "\"showAdvertise.jsp?id=" + houses.get(i).getId() + "\"" %> >
           <div class = "col-md-3 col-sm-12">
            <div class = "thumbnail">
            <br>
              <!--  function ready in selectDB -->
             <img alt=""  src="house1.png">
-            <br>
+            <b> <p class = "title"> <%= houses.get(i).getTitle() %></p></b>
             <ul>
-            <li><b> <p class = "title"> <%= houses.get(i).getTitle() %></p></b></li>
-            <li> <%= houses.get(i).getType() %></li>
-            <li> <%= houses.get(i).getRate()%></li>
+            <li> Price: <%= houses.get(i).getPrice() %>$</li>
+            <li> Rate: <%= houses.get(i).getRate()%></li>
             </ul>
            </div>
            </div>
            </a>
-         </div>
-         </div>
          <% 	
     	}
+         %>
+         </div>
+         </div>
+         <%
         }
        }
      %>
@@ -79,7 +81,7 @@
     
     <script>
     $(document).ready(function(){
-    	var session = <%= session.getAttribute("userName") %>;
+    	var session = <%= session.getAttribute("curUser") %>;
     	if(session != null){
           $("#AddforUser").show();	  
         }
@@ -88,9 +90,6 @@
        }
     });
     
-    function addAdvertise(){
-    	window.location.href = "AddAdvertise.jsp";
-    }
     </script>
     
     
