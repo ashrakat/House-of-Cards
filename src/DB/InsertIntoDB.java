@@ -25,7 +25,7 @@ public class InsertIntoDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
 
 			String query = "INSERT INTO users ( username, name , user_type, email , phone , pass) VALUES (?,?,?,?,?,?);";
 			PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -61,7 +61,7 @@ public class InsertIntoDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
 
 			Statement stmt = conn.createStatement();
 			String query = "INSERT INTO property (size,numOfFloor,rate,username,price,title,address,description,forWhat,status,type) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
@@ -106,7 +106,7 @@ public class InsertIntoDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
 
 			String query = "INSERT INTO notfication (link,body, type , username) VALUES(?,?,?,?);";
 			PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -131,7 +131,7 @@ public class InsertIntoDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
 
 			String query = "INSERT INTO comment (body, type , username ,id ) VALUES(?,?,?,?);";
 			PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);

@@ -126,7 +126,7 @@
 		
 		<div class="input-group">
 		 <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
-		 <input  class="form-control" type="text" name="size" placeholder = "Size of the house"> 
+		 <input  class="form-control" type="number" name="size" placeholder = "Size of the house"> 
 		</div>
 		<br>
 		

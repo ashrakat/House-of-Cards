@@ -27,7 +27,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT  username , pass FROM users ;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -55,7 +55,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM property;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -97,7 +97,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=shosho&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM property where username = '" + user.getUserName() + "' ;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -137,7 +137,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM comment where id = " + advertise.getId() + " ;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -167,7 +167,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM comment where username = '" + user.getUserName() + "' ;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -196,7 +196,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM notfication where username = '" + user.getUserName() + "' ;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -223,7 +223,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM users where username = '" + userName + "' ;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -270,7 +270,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM property where id = " + id + " ;";
 			ResultSet rs = stmt.executeQuery(query);

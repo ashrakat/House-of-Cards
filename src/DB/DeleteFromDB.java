@@ -19,7 +19,7 @@ public class DeleteFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "DELETE FROM comment  where username = '" + user.getUserName() + "' and id = "
 					+ advertise.getId() + " ;";

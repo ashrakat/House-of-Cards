@@ -20,12 +20,10 @@
             <a class="navbar-brand" href="Home.jsp" ><img  src="house1.png"></a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <!-- <li><a href="Home.jsp">Home</a></li> -->
-              <li><a href="UserView.jsp"><%= getUserName(request) %></a></li>
-            </ul>
+       
 		 <ul class="nav navbar-nav navbar-right">
-         <li><a href="logInUp.jsp">Signin/up</a></li>
+		  <li><a href="UserView.jsp"><%= getUserName(request) %></a></li>
+         <li><a href="signUp.jsp">Signin/up</a></li>
           <li><a href="SessionController?logout=logout">Logout</a></li>
          </ul>
         </div>

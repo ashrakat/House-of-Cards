@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DB.InsertIntoDB;
 import Models.Advertise;
 import Models.Normal;
 
@@ -40,6 +41,7 @@ public class AdvertiseController extends HttpServlet {
 		newAdvertise.setSize(Integer.parseInt(request.getParameter("size")));
 		newAdvertise.setAddress(request.getParameter("address"));
 		
+<<<<<<< Updated upstream
 		// get photos:
 		HttpSession session = request.getSession();
 		Normal user = (Normal) session.getAttribute("curUser");
@@ -49,6 +51,19 @@ public class AdvertiseController extends HttpServlet {
 		addAdvertise(newAdvertise);
 		
 		session.setAttribute("curAd", newAdvertise);
+=======
+		//photos:
+		//String userName = "salma"; //TODO get from session
+		//TODO add mainController to application scope
+		//MainController mainController = (MainController) request.getServletContext().getAttribute("mainController");
+		//newAdvertise.setOwner((Normal)DB.getCertainUserInfo(userName));
+		//newAdvertise.getOwner().addAdvertise(newAdvertise);
+		//mainController.addAdvertise(newAdvertise);
+		
+	   // HttpSession session = request.getSession();
+	   //session.setAttribute("curAd", newAdvertise);
+		InsertIntoDB.addHouse(newAdvertise);
+>>>>>>> Stashed changes
 		response.sendRedirect("showAdvertise.jsp");
 		
 	}

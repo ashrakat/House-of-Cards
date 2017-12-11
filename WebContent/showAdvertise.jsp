@@ -1,3 +1,4 @@
+<%@page import="DB.SelectFromDB"%>
 <%@ page language="java" contentType="text/html; charset=windows-1256"
 	pageEncoding="windows-1256"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -53,14 +54,11 @@
 
 
 <body onload="initialize()">
-
-	<h3>Adding new Advertise!</h3>
-	<br><br>
-
-	<form action="HouseController" method="post">
-		
 		<%
-			Advertise advertise = (Advertise) session.getAttribute("curAd");
+		  System.out.println(request.getParameter("id"));
+		   int id = Integer.parseInt(request.getParameter("id"));
+			
+		   Advertise advertise = SelectFromDB.getCertainHouseInfo(id);
 		%>
 		Advertise Title: <%= advertise.getTitle() %> <br> <br>
 		Description: <%= advertise.getDescription() %> <br> <br>
@@ -80,7 +78,5 @@
 	
 		<%//show user contact info %>
 
-
-	</form>
 </body>
 </html>
