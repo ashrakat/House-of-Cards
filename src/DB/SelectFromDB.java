@@ -9,7 +9,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Models.*;
+import Models.Comment;
+import Models.Advertise;
+import Models.Normal;
+import Models.Notifications;
+import Models.User;
 
 public class SelectFromDB {
 	/*Select ***/
@@ -41,8 +45,8 @@ public class SelectFromDB {
 		return allUsers;
 	}
 	//Checked
-	public static ArrayList<Advertise> allHouses() {
-		ArrayList<Advertise> houses = new ArrayList<Advertise>();
+	public static ArrayList<Advertise> allAdvertises() {
+		ArrayList<Advertise> advertises = new ArrayList<Advertise>();
 		String Name = "";
 		Connection conn = null;
 		try {
@@ -68,20 +72,24 @@ public class SelectFromDB {
 				advertise.setForWhat(rs.getString("forWhat"));
 				advertise.setStatus(rs.getString("status"));
 				advertise.setType("type");
+				advertise.setPrice(rs.getDouble("price"));
+				advertise.setTitle(rs.getString("title"));
+				advertise.setAddress(rs.getString("address"));
+				
 
-				houses.add(advertise);
+				advertises.add(advertise);
 			}
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return houses;
+		return advertises;
 	}
 	//Checked
-	public static ArrayList<Advertise> allUserHouses(User user) {
+	public static ArrayList<Advertise> allUserAdvertises(User user) {
 
-		ArrayList<Advertise> houses = new ArrayList<Advertise>();
+		ArrayList<Advertise> advertises = new ArrayList<Advertise>();
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -95,28 +103,31 @@ public class SelectFromDB {
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				Advertise house = new Advertise();
-				house.setId(rs.getInt("id"));
-				house.setSize(rs.getInt("size"));
-				house.setNumOfFloors(rs.getInt("numOfFloor"));
-				house.setRate(rs.getDouble("rate"));
-				house.setOwner((Normal)user);
-				house.setDescription(rs.getString("description"));
-				house.setForWhat(rs.getString("forWhat"));
-				house.setStatus(rs.getString("status"));
-				house.setType("type");
+				Advertise advertise = new Advertise();
+				advertise.setId(rs.getInt("id"));
+				advertise.setSize(rs.getInt("size"));
+				advertise.setNumOfFloors(rs.getInt("numOfFloor"));
+				advertise.setRate(rs.getDouble("rate"));
+				advertise.setOwner((Normal)user);
+				advertise.setDescription(rs.getString("description"));
+				advertise.setForWhat(rs.getString("forWhat"));
+				advertise.setStatus(rs.getString("status"));
+				advertise.setType("type");
+				advertise.setPrice(rs.getDouble("price"));
+				advertise.setTitle(rs.getString("title"));
+				advertise.setAddress(rs.getString("address"));
+				
 
-				houses.add(house);
+				advertises.add(advertise);
 			}
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return houses;
+		return advertises;
 	}
-
-	public static ArrayList<Comment> allHouseComment(Advertise advertise) {
+	public static ArrayList<Comment> allAdvertiseComment(Advertise advertise) {
 		ArrayList<Comment> comments = new ArrayList<Comment>();
 		Connection conn = null;
 		String Name = "";
@@ -132,7 +143,6 @@ public class SelectFromDB {
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				Comment comment = new Comment();
-				comment.setLink(rs.getString("link"));
 				comment.setBody(rs.getString("body"));
 				// java.sql.Date sqlDate = rs.getDate("date");
 				java.util.Date newDate = rs.getTimestamp("date");
@@ -147,7 +157,6 @@ public class SelectFromDB {
 		}
 		return comments;
 	}
-
 	public static ArrayList<Comment> allUserComment(User user) {
 
 		ArrayList<Comment> comments = new ArrayList<Comment>();
@@ -164,7 +173,6 @@ public class SelectFromDB {
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				Comment comment = new Comment();
-				comment.setLink(rs.getString("link"));
 				comment.setBody(rs.getString("body"));
 				// java.sql.Date sqlDate = rs.getDate("date");
 				java.util.Date newDate = rs.getTimestamp("date");
@@ -205,10 +213,9 @@ public class SelectFromDB {
 		}
 		return notifications;
 	}
-
 	//Checked
 	public static User getCertainUserInfo(String userName) {
-		User user = new Normal();
+		User user = null;
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -222,6 +229,7 @@ public class SelectFromDB {
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
+				user = new Normal();
 				user.setUserName(rs.getString("username"));
 				user.setName(rs.getString("name"));
 				user.setType(rs.getString("user_type"));
@@ -250,10 +258,9 @@ public class SelectFromDB {
 
 		return user;
 	}
-	
 	/** Missing retrieve photos */
 	/** Check with your team if it's possible case */
-	public static Advertise getCertainHouseInfo( int id ) {
+	public static Advertise getCertainAdvertiseInfo( int id ) {
 		Advertise advertise = new Advertise();
 		Connection conn = null;
 		try {
@@ -278,8 +285,12 @@ public class SelectFromDB {
 				advertise.setForWhat(rs.getString("forWhat"));
 				advertise.setStatus(rs.getString("status"));
 				advertise.setType("type");
+				advertise.setPrice(rs.getDouble("price"));
+				advertise.setTitle(rs.getString("title"));
+				advertise.setAddress(rs.getString("address"));
+				
 
-				// house.setPic(pic);
+				// Advertise.setPic(pic);
 			}
 			conn.close();
 		} catch (SQLException e) {

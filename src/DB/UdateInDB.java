@@ -6,7 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import Models.*;
+import Models.Advertise;
+import Models.User;
 
 public class UdateInDB {
 	/* Update **/
@@ -40,7 +41,7 @@ public class UdateInDB {
 
 	}
 
-	public static void UpdateHouse(Advertise advertise) {
+	public static void UpdateHouse( Advertise  advertise) {
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -50,7 +51,7 @@ public class UdateInDB {
 			conn = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 
-			String query = "UPDATE property set size =?,numOfFloor=?,rate=?,username=?,description=?,forWhat=?,status=?,type=? where id = "
+			String query = "UPDATE property set size =?,numOfFloor=?,rate=?,username=?,description=?,forWhat=?,status=?,type=?,price=?,title=?,address=? where id = "
 					+ advertise.getId() + " ;";
 			PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, advertise.getSize());
@@ -61,6 +62,10 @@ public class UdateInDB {
 			pstmt.setString(6, advertise.getForWhat());
 			pstmt.setString(7, advertise.getStatus());
 			pstmt.setString(8, advertise.getType());
+			pstmt.setDouble(9, advertise.getPrice());
+			pstmt.setString(10, advertise.getTitle());
+			pstmt.setString(11, advertise.getAddress());
+
 
 			int executeUpdate = pstmt.executeUpdate();
 			if (executeUpdate == 1)

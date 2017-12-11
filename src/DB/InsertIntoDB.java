@@ -1,5 +1,4 @@
 package DB;
-import Models.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,6 +10,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import Models.Comment;
+import Models.Advertise;
+import Models.Normal;
+import Models.Notifications;
 
 public class InsertIntoDB {
 	/* Add/Insert **/
@@ -47,10 +51,10 @@ public class InsertIntoDB {
 		}
 	}
 
-	/** Missing house photo **/
+	/** Missing Advertise photo **/
 	//Checked
 	///add address and title 
-	public static int addHouse(Advertise advertise) {
+	public static int addAdvertise(Advertise Advertise) {
 		Connection conn = null;
 		int id = 0;
 		try {
@@ -62,25 +66,29 @@ public class InsertIntoDB {
 					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 
 			Statement stmt = conn.createStatement();
-			String query = "INSERT INTO property (size,numOfFloor,rate,username,description,forWhat,status,type) VALUES (?,?,?,?,?,?,?,?);";
+			String query = "INSERT INTO property (size,numOfFloor,rate,username,price,title,address,description,forWhat,status,type) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-			pstmt.setInt(1, advertise.getSize());
-			pstmt.setInt(2, advertise.getNumOfFloors());
-			pstmt.setDouble(3, advertise.getRate());
-			pstmt.setString(4, advertise.getOwner().getUserName());
-			pstmt.setString(5, advertise.getDescription());
-			pstmt.setString(6, advertise.getForWhat());
-			pstmt.setString(7, advertise.getStatus());
-			pstmt.setString(8, advertise.getType());
+			pstmt.setInt(1, Advertise.getSize());
+			pstmt.setInt(2, Advertise.getNumOfFloors());
+			pstmt.setDouble(3, Advertise.getRate());
+			pstmt.setString(4, Advertise.getOwner().getUserName());
+			pstmt.setDouble(5, Advertise.getPrice());
+			pstmt.setString(6, Advertise.getTitle());
+			pstmt.setString(7, Advertise.getAddress());
+			pstmt.setString(8, Advertise.getDescription());
+			pstmt.setString(9, Advertise.getForWhat());
+			pstmt.setString(10, Advertise.getStatus());
+			pstmt.setString(11, Advertise.getType());
 
 			int executeUpdate = pstmt.executeUpdate();
 			if(executeUpdate == 1 )
 				System.out.println("Successfully had been add");
-			query = "SELECT id  from property where size = " + advertise.getSize() + " and numOfFloor = "
-					+ advertise.getNumOfFloors() + " and rate = " + advertise.getRate() + " and username = '"
-					+ advertise.getOwner().getUserName() + "' and description = '" + advertise.getDescription()
-					+ "' and forWhat = '" + advertise.getForWhat() + "' and status = '" + advertise.getStatus()
-					+ "' and type = '" + advertise.getType() + "' ;";
+			query = "SELECT id  from property where size = " + Advertise.getSize() + " and numOfFloor = "
+					+ Advertise.getNumOfFloors() + " and rate = " + Advertise.getRate() + " and username = '"
+					+ Advertise.getOwner().getUserName() + "' and description = '" + Advertise.getDescription()
+					+ "' and forWhat = '" + Advertise.getForWhat() + "' and status = '" + Advertise.getStatus()
+					+ "' and type = '" + Advertise.getType() + "' and title = '"+Advertise.getTitle()
+					+"' and address = '"+Advertise.getAddress()+"' and price = " + Advertise.getPrice() +" ;";
 
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -117,7 +125,7 @@ public class InsertIntoDB {
 		}
 	}
 	
-	public static void addComment(Normal user, Advertise advertise, Comment comment) {
+	public static void addComment(Normal user, Advertise Advertise, Comment comment) {
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -127,16 +135,15 @@ public class InsertIntoDB {
 			conn = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 
-			String query = "INSERT INTO comment (link,body, type , username ,id ) VALUES(?,?,?,?.?);";
+			String query = "INSERT INTO comment (body, type , username ,id ) VALUES(?,?,?,?);";
 			PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-			pstmt.setString(1, comment.getLink());
-			pstmt.setString(2, comment.getBody());
+			pstmt.setString(1, comment.getBody());
 			/** Convert Date **/
 			java.util.Date utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(comment.getDate().toString());
 			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-			pstmt.setDate(3, sqlDate);
-			pstmt.setString(4, user.getUserName());
-			pstmt.setInt(5, advertise.getId());
+			pstmt.setDate(2, sqlDate);
+			pstmt.setString(3, user.getUserName());
+			pstmt.setInt(4, Advertise.getId());
 			int executeUpdate = pstmt.executeUpdate();
 			if(executeUpdate == 1 )
 				System.out.println("Successfully had been add");

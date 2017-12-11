@@ -1,10 +1,12 @@
 package DB;
-import Models.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import Models.Advertise;
+import Models.User;
 
 public class DeleteFromDB {
 	
