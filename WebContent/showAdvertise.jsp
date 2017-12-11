@@ -58,7 +58,7 @@
 		  System.out.println(request.getParameter("id"));
 		   int id = Integer.parseInt(request.getParameter("id"));
 			
-		   Advertise advertise = SelectFromDB.getCertainHouseInfo(id);
+		   Advertise advertise = SelectFromDB.getCertainAdvertiseInfo(id);
 		%>
 		Advertise Title: <%= advertise.getTitle() %> <br> <br>
 		Description: <%= advertise.getDescription() %> <br> <br>

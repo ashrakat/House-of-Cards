@@ -35,7 +35,7 @@ public class MainController extends HttpServlet {
 	}
 	
 	protected void showAllHouses(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		ArrayList<Advertise> houses = SelectFromDB.allHouses();
+		ArrayList<Advertise> houses = SelectFromDB.allAdvertises();
 		if(houses == null)
 			 houses = new ArrayList<Advertise>();
 		request.setAttribute("houses", houses);

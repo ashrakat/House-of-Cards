@@ -23,7 +23,7 @@
     
         
     <div class = "container">
-<<<<<<< Updated upstream
+
    <%
     if (request.getAttribute("houses") == null){
     	RequestDispatcher rd= request.getRequestDispatcher("MainController?showHouses=showHouses");
@@ -31,20 +31,19 @@
       }
   
     else if(!((ArrayList<Advertise>)request.getAttribute("houses")).isEmpty() || (((ArrayList<Advertise>)request.getAttribute("houses")).isEmpty())){
-=======
-    <%
+    
     if (request.getAttribute("houses") == null){
     	RequestDispatcher rd= request.getRequestDispatcher("MainController?showHouses=showHouses");
 		rd.forward(request,response);
 		}
   
     else if(!((ArrayList<Advertise>)request.getAttribute("houses")).isEmpty() || (!((ArrayList<Advertise>)request.getAttribute("houses")).isEmpty())){
->>>>>>> Stashed changes
+
 		ArrayList<Advertise> houses =(ArrayList<Advertise>) request.getAttribute("houses"); 
         if(houses.size() > 0 ){
         for(int i = 0 ; i < houses.size() ; i++){
          %>
-<<<<<<< Updated upstream
+
          <div class = "row">
            <div class = "col-md-3 col-sm-12">
             <img alt="" src="">
@@ -54,7 +53,7 @@
             <p> <%= houses.get(i).getStatus() %></p>
             <p> <%= houses.get(i).getRate() %></p>
            </div>
-=======
+
          <div class = "container">
          <div class = "row">
          <a href=<%= "\"showAdvertise.jsp?id=" + houses.get(i).getId() + "\"" %> >
@@ -73,7 +72,6 @@
            </div>
            </a>
          </div>
->>>>>>> Stashed changes
          </div>
          <% 	
     	}

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import DataBase.SelectFromDB;
+import DB.SelectFromDB;
 
 import java.io.*;
 
@@ -26,13 +26,13 @@ import java.io.*;
  * Servlet implementation class UserControoler
  */
 @WebServlet("/UserControoler")
-public class UserControoler extends HttpServlet {
+public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserControoler() {
+    public UserController() {
         super();
         // TODO Auto-generated constructor stub
     }

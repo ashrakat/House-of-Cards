@@ -41,7 +41,7 @@ public class AdvertiseController extends HttpServlet {
 		newAdvertise.setSize(Integer.parseInt(request.getParameter("size")));
 		newAdvertise.setAddress(request.getParameter("address"));
 		
-<<<<<<< Updated upstream
+
 		// get photos:
 		HttpSession session = request.getSession();
 		Normal user = (Normal) session.getAttribute("curUser");
@@ -51,7 +51,7 @@ public class AdvertiseController extends HttpServlet {
 		addAdvertise(newAdvertise);
 		
 		session.setAttribute("curAd", newAdvertise);
-=======
+
 		//photos:
 		//String userName = "salma"; //TODO get from session
 		//TODO add mainController to application scope
@@ -62,8 +62,7 @@ public class AdvertiseController extends HttpServlet {
 		
 	   // HttpSession session = request.getSession();
 	   //session.setAttribute("curAd", newAdvertise);
-		InsertIntoDB.addHouse(newAdvertise);
->>>>>>> Stashed changes
+		InsertIntoDB.addAdvertise(newAdvertise);
 		response.sendRedirect("showAdvertise.jsp");
 		
 	}
