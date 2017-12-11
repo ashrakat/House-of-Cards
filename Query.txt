@@ -4,9 +4,9 @@ CREATE TABLE users (
  
   name varchar(200) NOT NULL,
    
-  user_type varchar(100) NOT NULL,
+  user_type varchar(100) ,
  
-  email varchar(100) NOT NULL,
+  email varchar(100) NOT NULL ,
   
   phone varchar(100) NOT NULL,
  
@@ -20,23 +20,25 @@ CREATE TABLE users (
 
 CREATE TABLE property (
  
- id int(5) NOT NULL AUTO_INCREMENT,
+ id int NOT NULL AUTO_INCREMENT,
  
- size int(11) NOT NULL,
+ size int ,
  
- numOfFloor int(11) NOT NULL,
+ numOfFloor int NOT NULL,
  
- rate double NOT NULL,
+ rate double ,
  
- username varchar(100) DEFAULT NULL,
+ username varchar(100) ,
+ price double ,
+ title varchar(200) , 
+ address varchar(200) , 
+ description varchar(200) ,
  
- description varchar(200) NOT NULL,
+ forWhat varchar(200) ,
  
- forWhat varchar(200) NOT NULL,
+ status varchar(200) ,
  
- status varchar(200) NOT NULL,
- 
- type varchar(200) NOT NULL,
+ type varchar(200) ,
  
  PRIMARY KEY (id),
  
@@ -46,24 +48,23 @@ CREATE TABLE property (
 
 
 CREATE TABLE comment (
-   link varchar(100) NOT NULL,
-   body varchar(100) NOT NULL,
+   body varchar(100) ,
    date date DEFAULT NULL,
-   username varchar(100) DEFAULT NULL,
-   id int(11) DEFAULT NULL,
-   FOREIGN KEY (username`) REFERENCES users (username),
+   username varchar(100) ,
+   id int,
+   FOREIGN KEY (username) REFERENCES users (username),
    FOREIGN KEY (id) REFERENCES property (id)
 );
 
 CREATE TABLE notfication (
  
-  link varchar(100) NOT NULL,
+  link varchar(100) ,
  
-  body varchar(100) NOT NULL,
+  body varchar(100) ,
   
-  type varchar(100) NOT NULL,
+  type varchar(100) ,
  
-  username varchar(100) DEFAULT NULL,
+  username varchar(100) ,
  
   FOREIGN KEY (username) REFERENCES users (username)
 
@@ -72,7 +73,8 @@ CREATE TABLE notfication (
 
 create table picProperty(
 
-  pic blob, 
+  pic blob,
+  
 id int,
 
   FOREIGN KEY (id) REFERENCES property (id)
