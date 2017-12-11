@@ -3,6 +3,7 @@ package Controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ public class MainController extends HttpServlet {
    
     public MainController() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,11 +34,14 @@ public class MainController extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	protected void showAllHouses(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	protected void showAllHouses(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		ArrayList<Advertise> houses = SelectFromDB.allHouses();
+		if(houses == null)
+			 houses = new ArrayList<Advertise>();
 		request.setAttribute("houses", houses);
-		System.out.println("Here we go " + houses.size());
-		response.sendRedirect("Home.jsp");
+		RequestDispatcher rd= request.getRequestDispatcher("Home.jsp");
+		rd.forward(request,response);
+		
 	}
 
 }
