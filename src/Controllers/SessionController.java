@@ -59,7 +59,8 @@ public class SessionController extends HttpServlet {
 		HashMap<String, HttpSession> sessionsManager = (HashMap<String, HttpSession>) request.getServletContext().getAttribute("sessionManager");
 		if (SelectFromDB.checkUserPass(username, pass)) {
 			HttpSession logInsession = request.getSession(true);
-			logInsession.setAttribute("userName", username);
+			User user = SelectFromDB.getCertainUserInfo(username); 
+			logInsession.setAttribute("curUser", user);
 			logInsession.setMaxInactiveInterval(5 * 60);
 			sessionsManager.put(logInsession.getId(), logInsession);
 			request.getServletContext().setAttribute("sessionManager", sessionsManager);
