@@ -15,27 +15,7 @@
 </head>
 <body>
 	<%
-	try{
-	 Class.forName("com.mysql.jdbc.Driver");
-	}
-	catch(ClassNotFoundException e){
-		e.printStackTrace();
-	}
-	String url = "jdbc:mysql://localhost:3306/ai";
-    String user = "root";
-    String password = "shosho";
-    Connection Con = null;
-    Statement Stmt = null;
-    ResultSet RS = null;
-    try
-    {
-      Con = DriverManager.getConnection(url, user, password);
-      Stmt = Con.createStatement();
-    }
-    catch(Exception e){
-    	System.err.print(e);
-   }
-  
+	
    HttpSession sessionn = request.getSession(false);
    Cookie[] cookies = request.getCookies();
   

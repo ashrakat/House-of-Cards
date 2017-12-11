@@ -7,7 +7,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
  <link rel="stylesheet" href="bootstrap_slate.css">
  <link rel="stylesheet" href="style.css">
@@ -24,31 +23,31 @@
     
         
     <div class = "container">
-    <%
-    if(request.getAttributeNames().toString().contains("houses") == true){
+   <%
+    if (request.getAttribute("houses") == null){
     	RequestDispatcher rd= request.getRequestDispatcher("MainController?showHouses=showHouses");
 		rd.forward(request,response);
-    }
-    
-    else{
-     ArrayList<Advertise> houses =(ArrayList<Advertise>) request.getAttribute("houses"); 
-     if(houses != null){
-     for(int i = 0 ; i < houses.size() ; i++){
-      %>
-      <div class = "row">
-        <div class = "col-md-3 col-sm-12">
-         <img alt="" src="">
-         <p> <%= houses.get(i).getForWhat() %></p>
-         <p> <%= houses.get(i).getType() %></p>
-         <p> <%= houses.get(i).getNumOfFloors() %></p>
-         <p> <%= houses.get(i).getStatus() %></p>
-         <p> <%= houses.get(i).getRate() %></p>
-        </div>
-      </div>
-      <% 
       }
-     }
-    }
+  
+    else if(!((ArrayList<Advertise>)request.getAttribute("houses")).isEmpty() || (((ArrayList<Advertise>)request.getAttribute("houses")).isEmpty())){
+		ArrayList<Advertise> houses =(ArrayList<Advertise>) request.getAttribute("houses"); 
+        if(houses.size() > 0 ){
+        for(int i = 0 ; i < houses.size() ; i++){
+         %>
+         <div class = "row">
+           <div class = "col-md-3 col-sm-12">
+            <img alt="" src="">
+            <p> <%= houses.get(i).getForWhat() %></p>
+            <p> <%= houses.get(i).getType() %></p>
+            <p> <%= houses.get(i).getNumOfFloors() %></p>
+            <p> <%= houses.get(i).getStatus() %></p>
+            <p> <%= houses.get(i).getRate() %></p>
+           </div>
+         </div>
+         <% 	
+    	}
+        }
+       }
      %>
     
     </div>
