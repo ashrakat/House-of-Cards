@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 public class Normal extends User{
 	
-	ArrayList<Advertise> listOfHouses = new ArrayList<Advertise>();
+	ArrayList<Advertise> listOfAdvertises = new ArrayList<Advertise>();
 	ArrayList<Notifications> listOfNotifications= new ArrayList<Notifications>();
 	ArrayList <String> Preferences = new ArrayList <String>() ; 
 
-	public ArrayList<Advertise> getListOfHouses() {
-		return listOfHouses;
+	public ArrayList<Advertise> getListOfAdvertises() {
+		return listOfAdvertises;
 	}
 
-	public void setListOfHouses(ArrayList<Advertise> listOfHouses) {
-		this.listOfHouses = listOfHouses;
+	public void setListOfAdvertises(ArrayList<Advertise> listOfAdvertises) {
+		this.listOfAdvertises = listOfAdvertises;
 	}
 	
 	public ArrayList<Notifications> getListOfNotifications() {
@@ -32,8 +32,8 @@ public class Normal extends User{
 		Preferences = preferences;
 	}
 
-	public void addHouse(Advertise house){
-		this.listOfHouses.add(house);
+	public void addAdvertise(Advertise advertise){
+		this.listOfAdvertises.add(advertise);
 	}
 	
 	public void addNotification(Notifications Notify){
