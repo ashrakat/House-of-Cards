@@ -123,6 +123,7 @@ public class SessionController extends HttpServlet {
 	}
 
 }
+<<<<<<< HEAD
 =======
 package Controllers;
 
@@ -276,3 +277,5 @@ public class SessionController extends HttpServlet {
 
  }
 }
+=======
+>>>>>>> 92e3e671685e0393fdf1f9bfe5f52e4bbc4ec4b1
