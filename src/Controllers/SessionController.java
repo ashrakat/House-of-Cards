@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 package Controllers;
 
 import java.io.File;
@@ -277,5 +276,3 @@ public class SessionController extends HttpServlet {
 
  }
 }
-
->>>>>>> Stashed changes
