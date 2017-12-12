@@ -75,10 +75,10 @@ public class SessionController extends HttpServlet {
 	}
 
 	protected void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	
+
 		HashMap<String, HttpSession> search = (HashMap<String, HttpSession>) request.getServletContext()
 				.getAttribute("sessionManager");
-		
+
 		if (search == null)
 			request.getSession().invalidate();
 		else {
@@ -96,3 +96,7 @@ public class SessionController extends HttpServlet {
 
 	}
 }
+    }
+}
+
+

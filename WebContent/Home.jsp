@@ -21,17 +21,21 @@
     <a href="#"></a>
     <a href="#"></a>
   </div>
+  <div class = "row"> 
   <button id = "menu" type="button" class="btn btn-default circle" onclick="openNav()">
     <span class = "fa"style = "font-weight:bold;">&#9776;</span>
   </button>
    
+<<<<<<< HEAD
    <div class = "row"> 
+=======
+>>>>>>> 1c7a6b68491d343bb777de8efba2e594e5ae752d
     <div id = "AddforUser" style = "float:right;"> 
     <a href = "AddAdvertise.jsp"><button class = "btn addAdv">Add Advertise </button></a>
     </div>
    </div>
-        
-    <div class = "container">
+    <br>    
+    
    <%
     if (request.getAttribute("houses") == null){
     	RequestDispatcher rd= request.getRequestDispatcher("MainController?showHouses=showHouses");
@@ -44,7 +48,10 @@
         if(houses.size() > 0 ){
         %>
         <div class = "container" id = "main">
+<<<<<<< HEAD
         <div class = "container">
+=======
+>>>>>>> 1c7a6b68491d343bb777de8efba2e594e5ae752d
          <div class = "row">
          <%
          String path ="";
@@ -77,7 +84,7 @@
        }
      %>
     
-    </div>
+    
     
     
     
