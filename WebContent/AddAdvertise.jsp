@@ -92,6 +92,12 @@
 	   </div> 
 	   <br> 
 	   
+	    <div class="input-group">
+	    <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
+	    <input type="number" class="form-control" name="price" placeholder = "Price">
+	   </div> 
+	   <br> 
+	   
 	   <div class="input-group">
 	    <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
 	    <input type="text" class="form-control"  name="type" placeholder = "Type"> 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="Models.User"%>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,15 +28,16 @@
           <li><a href="SessionController?logout=logout">Logout</a></li>
          </ul>
         </div>
-       </div>
-    </nav>
+    </div>
+   </nav>
     
      <%!
     String getUserName(HttpServletRequest request){
-    	if(request.getSession().getAttribute("userName") == null)
+    	if(request.getSession().getAttribute("curUser") == null)
     		return "";
     	else{
-    		return (String)request.getSession().getAttribute("userName");
+    		User user = (User)request.getSession().getAttribute("curUser");
+    		return user.getUserName();
     	}
     }
     %>

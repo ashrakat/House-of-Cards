@@ -89,7 +89,7 @@
 	<center>
     <div class ="row">
         <div class = "col-md-5 col-md-offset-1">
-	  <form action="SessionController" method="POST">
+	  <form action="UserController" method="POST">
 	    <div class="input-group">
 			<span class="input-group-addon input-group-sm"><i class = "fa fa-user fa-lg"></i></span>
           <input type="text" class="form-control" name = "name" placeholder="FullName">

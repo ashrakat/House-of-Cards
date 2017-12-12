@@ -236,6 +236,7 @@ public class SelectFromDB {
 				user.setEmail(rs.getString("email"));
 				user.setPhone(rs.getString("phone"));
 				user.setPassword(rs.getString("pass"));
+				if( rs.getBinaryStream("pic") != null) {
 				InputStream imgStream = rs.getBinaryStream("pic"); 
 				OutputStream out = null;
 				// new Path saving Photo  
@@ -251,6 +252,7 @@ public class SelectFromDB {
 				 if(out != null){
 						out.close();
 					}
+			  }
 			}
 			conn.close();
 		} catch (SQLException | IOException e) {
@@ -309,7 +311,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * from users WHERE username =  '"+username+"' and pass = '"+password+"' ;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -332,7 +334,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * from users where email =  '"+email+"' OR username = '"+userName+"' ;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -346,5 +348,6 @@ public class SelectFromDB {
 		}
 		return true;
 	}
+    
 
 }

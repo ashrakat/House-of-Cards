@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DB.InsertIntoDB;
+import DB.SelectFromDB;
 import Models.Advertise;
 import Models.Normal;
 
@@ -40,6 +41,7 @@ public class AdvertiseController extends HttpServlet {
 		newAdvertise.setNumOfFloors(Integer.parseInt(request.getParameter("floors")));
 		newAdvertise.setSize(Integer.parseInt(request.getParameter("size")));
 		newAdvertise.setAddress(request.getParameter("address"));
+		newAdvertise.setPrice(Integer.parseInt(request.getParameter("price")));
 		
 
 		// get photos:
@@ -50,7 +52,6 @@ public class AdvertiseController extends HttpServlet {
 		user.addAdvertise(newAdvertise);
 		addAdvertise(newAdvertise);
 		
-		session.setAttribute("curAd", newAdvertise);
 
 		//photos:
 		//String userName = "salma"; //TODO get from session
@@ -60,10 +61,9 @@ public class AdvertiseController extends HttpServlet {
 		//newAdvertise.getOwner().addAdvertise(newAdvertise);
 		//mainController.addAdvertise(newAdvertise);
 		
-	   // HttpSession session = request.getSession();
-	   //session.setAttribute("curAd", newAdvertise);
-		InsertIntoDB.addAdvertise(newAdvertise);
-		response.sendRedirect("showAdvertise.jsp");
+		int id = InsertIntoDB.addAdvertise(newAdvertise);
+		System.out.println(id);
+		response.sendRedirect("\\House_of_Cards\\showAdvertise.jsp?id="+id);
 		
 	}
 
