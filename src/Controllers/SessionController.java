@@ -1,22 +1,26 @@
 package Controllers;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.*;
+import DB.*;
+import Models.*;
+
 import java.util.HashMap;
-import java.util.Map;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URLDecoder;
+import java.nio.file.Paths;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import DB.SelectFromDB;
-import Models.Normal;
-import Models.User;
-import DB.InsertIntoDB;
+import javax.servlet.http.Part;
 
 /**
  * Servlet implementation class SessionController
@@ -25,41 +29,36 @@ import DB.InsertIntoDB;
 public class SessionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	Connection Con = null;
-	Statement Stmt = null;
-	ResultSet RS = null;
-
-	public SessionController() throws SQLException {
+	public SessionController() {
 	}
 
-	
-
+	// check for username and mail for sign up to not be repeated
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		// All about login process
 		String username = request.getParameter("userName");
 		String pass = request.getParameter("password");
 
 		if (request.getParameter("logout") != null) // logout is active
 		{
 			logout(request, response);
-		} 
-		else { // log in is active
-            logIn(request , response , username , pass );
+		} else { // log in is active
+			logIn(request, response, username, pass);
 		}
 	}
 
-	
+	// Sign up process
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 	}
-	
-	
-	protected void logIn(HttpServletRequest request, HttpServletResponse response , String username , String pass) throws IOException {
-		HashMap<String, HttpSession> sessionsManager = (HashMap<String, HttpSession>) request.getServletContext().getAttribute("sessionManager");
+
+	protected void logIn(HttpServletRequest request, HttpServletResponse response, String username, String pass)
+			throws IOException {
+		HashMap<String, HttpSession> sessionsManager = (HashMap<String, HttpSession>) request.getServletContext()
+				.getAttribute("sessionManager");
 		if (SelectFromDB.checkUserPass(username, pass)) {
 			HttpSession logInsession = request.getSession(true);
-			User user = SelectFromDB.getCertainUserInfo(username); 
+			User user = SelectFromDB.getCertainUserInfo(username);
 			logInsession.setAttribute("curUser", user);
 			logInsession.setMaxInactiveInterval(5 * 60);
 			sessionsManager.put(logInsession.getId(), logInsession);
@@ -76,7 +75,10 @@ public class SessionController extends HttpServlet {
 	}
 
 	protected void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		HashMap<String, HttpSession> search = (HashMap<String, HttpSession>) request.getServletContext().getAttribute("sessionManager");
+	
+		HashMap<String, HttpSession> search = (HashMap<String, HttpSession>) request.getServletContext()
+				.getAttribute("sessionManager");
+		
 		if (search == null)
 			request.getSession().invalidate();
 		else {
@@ -92,9 +94,5 @@ public class SessionController extends HttpServlet {
 		}
 		response.sendRedirect("Home.jsp");
 
-    }
-<<<<<<< HEAD
+	}
 }
-=======
-}
->>>>>>> e5d0e2c2cbd8370b1a7eaf0e66a6b3046ca57818

@@ -1,5 +1,6 @@
 package Models;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class Advertise {
@@ -17,10 +18,10 @@ public class Advertise {
 	double rate;
 	double price;
 	int numOfFloors;
-	int mainPhoto[];
-	int otherPhotos[][];
+	InputStream mainPhoto;
 	boolean susbinded = false;
 	ArrayList<Comment> comments = new ArrayList<Comment>();
+	ArrayList<InputStream> otherPhotos = new ArrayList<InputStream>() ; 
 	
 	
 	public Advertise(){
@@ -91,17 +92,20 @@ public class Advertise {
 	public void setNumOfFloors(int numOfFloors) {
 		this.numOfFloors = numOfFloors;
 	}
-	public int[] getMainPhoto() {
+	public InputStream getMainPhoto() {
 		return mainPhoto;
 	}
-	public void setMainPhoto(int[] mainPhoto) {
+	public void setMainPhoto(InputStream mainPhoto) {
 		this.mainPhoto = mainPhoto;
 	}
-	public int[][] getOtherPhotos() {
+	public ArrayList<InputStream> getOtherPhotos() {
 		return otherPhotos;
 	}
-	public void setOtherPhotos(int[][] otherPhotos) {
+	public void setOtherPhotos(ArrayList<InputStream> otherPhotos) {
 		this.otherPhotos = otherPhotos;
+	}
+	public void addPhoto(InputStream photo) {
+		this.otherPhotos.add(photo);
 	}
 	public boolean isSusbinded() {
 		return susbinded;
@@ -115,19 +119,13 @@ public class Advertise {
 	public void setComments(ArrayList<Comment> comments) {
 		this.comments = comments;
 	}
-
-
-	public double getPrice() {
+    public double getPrice() {
 		return price;
 	}
-
-
-	public void setPrice(double price) {
+    public void setPrice(double price) {
 		this.price = price;
 	}
-
-
-	public void setOwner(User owner) {
+    public void setOwner(User owner) {
 		this.owner = owner;
 	}
 	

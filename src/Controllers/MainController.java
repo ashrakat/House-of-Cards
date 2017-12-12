@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import DB.SelectFromDB;
 import Models.Advertise;
 
-
+/**
+ * Servlet implementation class MainController
+ */
 @WebServlet("/MainController")
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
-    public MainController() {
-        super();
-        
-    }
-
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("showHouses") != null){
 			showAllHouses(request, response);
@@ -43,5 +43,4 @@ public class MainController extends HttpServlet {
 		rd.forward(request,response);
 		
 	}
-
 }

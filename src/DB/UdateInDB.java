@@ -19,7 +19,7 @@ public class UdateInDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 			String query = "UPDATE users set name=?, user_type=?,email=?,phone=?,pass=? where username = '"
 					+ user.getUserName() + "' ;";
 			PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -49,7 +49,7 @@ public class UdateInDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 
 			String query = "UPDATE property set size =?,numOfFloor=?,rate=?,username=?,description=?,forWhat=?,status=?,type=?,price=?,title=?,address=? where id = "
 					+ advertise.getId() + " ;";

@@ -27,7 +27,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT  username , pass FROM users ;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -35,7 +35,6 @@ public class SelectFromDB {
 				String username = rs.getString("username");
 				String pass = rs.getString("pass");
 				allUsers.put(username, pass);
-				System.out.println("UserName : " + username + " , PassWord: " + pass);
 			}
 			conn.close();
 		} catch (SQLException e) {
@@ -55,7 +54,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM property;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -75,14 +74,29 @@ public class SelectFromDB {
 				advertise.setPrice(rs.getDouble("price"));
 				advertise.setTitle(rs.getString("title"));
 				advertise.setAddress(rs.getString("address"));
-				
-
+				InputStream imgStream = rs.getBinaryStream("pic");
+				advertise.setMainPhoto(imgStream);
+				OutputStream outfile = null;
+				String path = "";
+					path = "C:\\Users\\norha\\Documents\\workspace-sts-3.9.1.RELEASE\\HouseOfCards\\WebContent\\"
+							+ advertise.getId() + ".jpg";
+					outfile = new FileOutputStream(new File(path));
+					int c = 0;
+					c = advertise.getMainPhoto().read();
+					while (c != -1) {
+						outfile.write(c);
+						c = advertise.getMainPhoto().read();
+					}
+					if (outfile != null) 
+						 outfile.close();	
 				advertises.add(advertise);
 			}
 			conn.close();
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}
+		for(int i = 0 ; i < advertises.size() ; i++)
+			advertises.get(i).setOtherPhotos(loadCertainAdvertisePhotos(advertises.get(i).getId()));
 
 		return advertises;
 	}
@@ -97,7 +111,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=shosho&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM property where username = '" + user.getUserName() + "' ;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -116,12 +130,28 @@ public class SelectFromDB {
 				advertise.setPrice(rs.getDouble("price"));
 				advertise.setTitle(rs.getString("title"));
 				advertise.setAddress(rs.getString("address"));
+				InputStream imgStream = rs.getBinaryStream("pic");
+				advertise.setMainPhoto(imgStream);
+				
+				OutputStream outfile = null;
+				String path = "";
+					path = "C:\\Users\\norha\\Documents\\workspace-sts-3.9.1.RELEASE\\HouseOfCards\\WebContent\\"
+							+ advertise.getId() + ".jpg";
+					outfile = new FileOutputStream(new File(path));
+					int c = 0;
+					c = advertise.getMainPhoto().read();
+					while (c != -1) {
+						outfile.write(c);
+						c = advertise.getMainPhoto().read();
+					}
+					if (outfile != null) 
+						 outfile.close();
 				
 
 				advertises.add(advertise);
 			}
 			conn.close();
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}
 
@@ -137,7 +167,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM comment where id = " + advertise.getId() + " ;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -167,7 +197,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM comment where username = '" + user.getUserName() + "' ;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -196,7 +226,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM notfication where username = '" + user.getUserName() + "' ;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -223,8 +253,9 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
+
 			String query = "SELECT * FROM users where username = '" + userName + "' ;";
 			ResultSet rs = stmt.executeQuery(query);
 
@@ -236,23 +267,23 @@ public class SelectFromDB {
 				user.setEmail(rs.getString("email"));
 				user.setPhone(rs.getString("phone"));
 				user.setPassword(rs.getString("pass"));
-				if( rs.getBinaryStream("pic") != null) {
 				InputStream imgStream = rs.getBinaryStream("pic"); 
-				OutputStream out = null;
-				// new Path saving Photo  
-				out = new FileOutputStream(new File("F:\\Anime\\fromDb.png"));
-				int c = 0;
-                                //write the contents from the input stream to the output stream
-				c = imgStream.read() ; 
-				while (c != -1) {
-					out.write(c);
-					c = imgStream.read();
-				}
-				// user.setPic(pic);
-				 if(out != null){
-						out.close();
+				user.setPic(imgStream);
+				
+				OutputStream outfile = null;
+				String path = "";
+					path = "C:\\Users\\norha\\Documents\\workspace-sts-3.9.1.RELEASE\\HouseOfCards\\WebContent\\"
+							+ user.getUserName() + ".jpg";
+					outfile = new FileOutputStream(new File(path));
+					int c = 0;
+					c = user.getPic().read();
+					while (c != -1) {
+						outfile.write(c);
+						c = user.getPic().read();
 					}
-			  }
+					if (outfile != null) {
+						outfile.close();
+					}
 			}
 			conn.close();
 		} catch (SQLException | IOException e) {
@@ -261,8 +292,7 @@ public class SelectFromDB {
 
 		return user;
 	}
-	/** Missing retrieve photos */
-	/** Check with your team if it's possible case */
+	//Checked
 	public static Advertise getCertainAdvertiseInfo( int id ) {
 		Advertise advertise = new Advertise();
 		Connection conn = null;
@@ -272,7 +302,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM property where id = " + id + " ;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -291,18 +321,32 @@ public class SelectFromDB {
 				advertise.setPrice(rs.getDouble("price"));
 				advertise.setTitle(rs.getString("title"));
 				advertise.setAddress(rs.getString("address"));
+				InputStream imgStream = rs.getBinaryStream("pic");
+				advertise.setMainPhoto(imgStream);
 				
-
-				// Advertise.setPic(pic);
+				OutputStream outfile = null;
+				String path = "";
+					path = "C:\\Users\\norha\\Documents\\workspace-sts-3.9.1.RELEASE\\HouseOfCards\\WebContent\\"
+							+ advertise.getId() + ".jpg";
+					outfile = new FileOutputStream(new File(path));
+					int c = 0;
+					c = advertise.getMainPhoto().read();
+					while (c != -1) {
+						outfile.write(c);
+						c = advertise.getMainPhoto().read();
+					}
+					if (outfile != null) 
+						 outfile.close();
 			}
 			conn.close();
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}
-
+		
+		advertise.setOtherPhotos(loadCertainAdvertisePhotos(advertise.getId()));
 		return advertise;
 	}
-
+	//Checked
 	public static boolean checkUserPass (String username , String password ){
 		Connection conn = null;
 		try {
@@ -311,11 +355,10 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * from users WHERE username =  '"+username+"' and pass = '"+password+"' ;";
 			ResultSet rs = stmt.executeQuery(query);
-
 			while (rs.next()) {
 					return true ; 
 			}
@@ -325,7 +368,7 @@ public class SelectFromDB {
 		}
 		return false;
 	}
-	
+	//Checked
     public static boolean CheckemailandUser (String email , String userName ){
     	Connection conn = null;
 		try {
@@ -334,7 +377,7 @@ public class SelectFromDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * from users where email =  '"+email+"' OR username = '"+userName+"' ;";
 			ResultSet rs = stmt.executeQuery(query);
@@ -348,6 +391,43 @@ public class SelectFromDB {
 		}
 		return true;
 	}
+    //Checked
+    public static  ArrayList<InputStream> loadCertainAdvertisePhotos(int id ){
+    	ArrayList<InputStream> photos = new ArrayList<InputStream>() ;
+    	Connection conn = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException ex) {
+		}
+		try {
+			conn = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+			Statement stmt = conn.createStatement();
+			String query = "SELECT * FROM picproperty where id = " + id + " ;";
+			ResultSet rs = stmt.executeQuery(query);
+			int i = 0 ;
+			while (rs.next()) {
+				OutputStream outfile = null;
+				String path = "";
+					path = "C:\\Users\\norha\\Documents\\workspace-sts-3.9.1.RELEASE\\HouseOfCards\\WebContent\\"
+							+ id +"-"+ i+ ".jpg";
+					InputStream imgStream = rs.getBinaryStream("pic");
+					outfile = new FileOutputStream(new File(path));
+					int c = 0;
+					c = imgStream.read();
+					while (c != -1) {
+						outfile.write(c);
+						c = imgStream.read();
+					}
+					if (outfile != null) 
+						 outfile.close();
+					i++;
+			}
+			conn.close();
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}
+		return photos ; 
+    }
     
-
 }

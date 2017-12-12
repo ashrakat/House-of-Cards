@@ -23,7 +23,7 @@
           <div id="navbar" class="navbar-collapse collapse">
        
 		 <ul class="nav navbar-nav navbar-right">
-		  <li><a href="UserView.jsp"><%= getUserName(request) %></a></li>
+		  <li><a href="profile.jsp"><%= getUserName(request) %></a></li>
          <li><a href="signUp.jsp">Signin/up</a></li>
           <li><a href="SessionController?logout=logout">Logout</a></li>
          </ul>

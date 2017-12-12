@@ -2,6 +2,7 @@ package DB;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,13 +11,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
+import java.util.ArrayList;
 
 import Models.*;
 
 public class InsertIntoDB {
 	/* Add/Insert **/
-	//Checked
+	// Checked
 	public static void addUser(User user) {
 		Connection conn = null;
 		try {
@@ -25,9 +26,9 @@ public class InsertIntoDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 
-			String query = "INSERT INTO users ( username, name , user_type, email , phone , pass) VALUES (?,?,?,?,?,?);";
+			String query = "INSERT INTO users ( username, name , user_type, email , phone , pass , pic) VALUES (?,?,?,?,?,?,?);";
 			PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, user.getUserName());
 			pstmt.setString(2, user.getName());
@@ -35,13 +36,13 @@ public class InsertIntoDB {
 			pstmt.setString(4, user.getEmail());
 			pstmt.setString(5, user.getPhone());
 			pstmt.setString(6, user.getPassword());
-			/*File image = new File(path);*/
-			//FileInputStream fis = new FileInputStream ( user.getPic() );
-			//pstmt.setBlob(7, fis);
-			//pstmt.setBinaryStream (7, fis, (int) user.getPic().length() );
+			/* File image = new File(path); */
+			// FileInputStream fis = new FileInputStream ( user.getPic() );
+			// pstmt.setBlob(7, user.getPic());
+			pstmt.setBinaryStream(7, user.getPic());
 
 			int executeUpdate = pstmt.executeUpdate();
-			if(executeUpdate == 1 )
+			if (executeUpdate == 1)
 				System.out.println("Successfully had been add");
 			conn.close();
 		} catch (SQLException e) {
@@ -50,8 +51,8 @@ public class InsertIntoDB {
 	}
 
 	/** Missing Advertise photo **/
-	//Checked
-	///add address and title 
+	// Checked
+	/// add address and title
 	public static int addAdvertise(Advertise Advertise) {
 		Connection conn = null;
 		int id = 0;
@@ -61,10 +62,10 @@ public class InsertIntoDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 
 			Statement stmt = conn.createStatement();
-			String query = "INSERT INTO property (size,numOfFloor,rate,username,price,title,address,description,forWhat,status,type) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+			String query = "INSERT INTO property (size,numOfFloor,rate,username,price,title,address,description,forWhat,status,type,pic) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, Advertise.getSize());
 			pstmt.setInt(2, Advertise.getNumOfFloors());
@@ -77,27 +78,54 @@ public class InsertIntoDB {
 			pstmt.setString(9, Advertise.getForWhat());
 			pstmt.setString(10, Advertise.getStatus());
 			pstmt.setString(11, Advertise.getType());
+			pstmt.setBinaryStream(12, Advertise.getMainPhoto());
 
 			int executeUpdate = pstmt.executeUpdate();
-			if(executeUpdate == 1 )
+			if (executeUpdate == 1)
 				System.out.println("Successfully had been add");
 			query = "SELECT id  from property where size = " + Advertise.getSize() + " and numOfFloor = "
 					+ Advertise.getNumOfFloors() + " and rate = " + Advertise.getRate() + " and username = '"
 					+ Advertise.getOwner().getUserName() + "' and description = '" + Advertise.getDescription()
 					+ "' and forWhat = '" + Advertise.getForWhat() + "' and status = '" + Advertise.getStatus()
-					+ "' and type = '" + Advertise.getType() + "' and title = '"+Advertise.getTitle()
-					+"' and address = '"+Advertise.getAddress()+"' and price = " + Advertise.getPrice() +" ;";
+					+ "' and type = '" + Advertise.getType() + "' and title = '" + Advertise.getTitle()
+					+ "' and address = '" + Advertise.getAddress() + "' and price = " + Advertise.getPrice() + " ;";
 
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				id = rs.getInt("id");
 			}
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		addAdvertisePhotos(id, Advertise.getOtherPhotos());
 		return id;
 	}
 	//Checked
+	public static void addAdvertisePhotos(int id, ArrayList<InputStream> photos) {
+		Connection conn = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException ex) {
+		}
+		try {
+			conn = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
+			for(int i =0 ; i < photos.size() ; i ++){
+				String query = "INSERT INTO picproperty (pic,id) VALUES (?,?);";
+				PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+				pstmt.setBinaryStream(1,photos.get(i));
+				pstmt.setInt(2,id);
+				
+			   pstmt.executeUpdate();
+			
+			}
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	// Checked
 	public static void addNotification(User user, Notifications noitify) {
 		Connection conn = null;
 		try {
@@ -106,7 +134,7 @@ public class InsertIntoDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 
 			String query = "INSERT INTO notfication (link,body, type , username) VALUES(?,?,?,?);";
 			PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -115,14 +143,14 @@ public class InsertIntoDB {
 			pstmt.setString(3, noitify.getType());
 			pstmt.setString(4, user.getUserName());
 			int executeUpdate = pstmt.executeUpdate();
-			if(executeUpdate == 1 )
+			if (executeUpdate == 1)
 				System.out.println("Successfully had been add");
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void addComment(User user, Advertise Advertise, Comment comment) {
 		Connection conn = null;
 		try {
@@ -131,7 +159,7 @@ public class InsertIntoDB {
 		}
 		try {
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/ai?" + "user=root&password=shosho&characterEncoding=utf8");
+					"jdbc:mysql://localhost:3306/ia?" + "user=root&password=noor92&characterEncoding=utf8");
 
 			String query = "INSERT INTO comment (body, type , username ,id ) VALUES(?,?,?,?);";
 			PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -143,7 +171,7 @@ public class InsertIntoDB {
 			pstmt.setString(3, user.getUserName());
 			pstmt.setInt(4, Advertise.getId());
 			int executeUpdate = pstmt.executeUpdate();
-			if(executeUpdate == 1 )
+			if (executeUpdate == 1)
 				System.out.println("Successfully had been add");
 			conn.close();
 
@@ -152,6 +180,5 @@ public class InsertIntoDB {
 		}
 
 	}
-
 
 }

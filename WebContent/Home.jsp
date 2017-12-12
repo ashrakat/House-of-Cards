@@ -16,7 +16,6 @@
 </head>
 <body>
 
-<<<<<<< HEAD
   <div id="sidenav" class="sidenav">
     <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="#"></a>
@@ -26,8 +25,6 @@
     <span class = "fa"style = "font-weight:bold;">&#9776;</span>
   </button>
    
-=======
->>>>>>> e5d0e2c2cbd8370b1a7eaf0e66a6b3046ca57818
    <div class = "row"> 
     <div id = "AddforUser" style = "float:right;"> 
     <a href = "AddAdvertise.jsp"><button class = "btn addAdv">Add Advertise </button></a>
@@ -45,16 +42,15 @@
 
 		ArrayList<Advertise> houses =(ArrayList<Advertise>) request.getAttribute("houses"); 
         if(houses.size() > 0 ){
-<<<<<<< HEAD
         %>
         <div class = "container" id = "main">
-=======
-        	%>
         <div class = "container">
->>>>>>> e5d0e2c2cbd8370b1a7eaf0e66a6b3046ca57818
          <div class = "row">
          <%
+         String path ="";
           for(int i = 0 ; i < houses.size() ; i++){
+        	  path =houses.get(i).getId() + ".jpg";
+        	  System.out.print(path);
          %>
          
          <a href=<%= "\"showAdvertise.jsp?id=" + houses.get(i).getId() + "\"" %> >
@@ -62,7 +58,7 @@
            <div class = "thumbnail">
            <br>
              <!--  function ready in selectDB -->
-            <img alt=""  src="house1.png">
+            <img  src="<%=path%>" alt="">
             <b> <p class = "title"> <%= houses.get(i).getTitle() %></p></b>
             <ul>
             <li> Price: <%= houses.get(i).getPrice() %>$</li>
@@ -107,7 +103,6 @@
        }
     });
     
-<<<<<<< HEAD
     function openNav() {
         document.getElementById("sidenav").style.width = "180px";
         document.getElementById("main").style.marginLeft = "50px";
@@ -118,8 +113,6 @@
         document.getElementById("main").style.marginLeft = "0px";
       }	
     
-=======
->>>>>>> e5d0e2c2cbd8370b1a7eaf0e66a6b3046ca57818
     </script>
     
     

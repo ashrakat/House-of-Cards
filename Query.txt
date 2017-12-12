@@ -39,6 +39,8 @@ CREATE TABLE property (
  status varchar(200) ,
  
  type varchar(200) ,
+ pic blob,
+ 
  
  PRIMARY KEY (id),
  

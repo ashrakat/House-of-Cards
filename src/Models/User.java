@@ -2,6 +2,7 @@ package Models;
 
 
 import java.io.File;
+import java.io.InputStream;
 
 public class User {
 	
@@ -11,7 +12,7 @@ public class User {
 	String password;
 	String email;
 	String phone;
-	File pic;
+	InputStream pic;
 	
 	public User() {
 		
@@ -46,10 +47,10 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public File getPic() {
+	public InputStream getPic() {
 		return pic;
 	}
-	public void setPic(File pic) {
+	public void setPic(InputStream pic) {
 		this.pic = pic;
 	}
 	public String getType() {

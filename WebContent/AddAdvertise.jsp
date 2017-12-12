@@ -78,7 +78,7 @@
 	 <center>
     <div class ="row">
      <div class = "col-md-5 col-md-offset-3">
-	<form action="AdvertiseController" method="post">
+	<form action="AdvertiseController" method="POST" enctype="multipart/form-data">
 
        <div class="input-group">
        <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
@@ -89,12 +89,6 @@
 	   <div class="input-group">
 	    <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
 	    <input type="text" class="form-control" name="description" placeholder = "Description">
-	   </div> 
-	   <br> 
-	   
-	    <div class="input-group">
-	    <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
-	    <input type="number" class="form-control" name="price" placeholder = "Price">
 	   </div> 
 	   <br> 
 	   
@@ -126,7 +120,7 @@
 		
 		<div class="input-group">
 		 <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
-		 <input  class="form-control"  type="number" name="floors" placeholder = "# of floors" min = 1>
+		 <input  class="form-control"  type="number"  name="floors" placeholder = "# of floors" min=1>
 		</div>
 		<br>
 		
@@ -137,23 +131,21 @@
 		<br>
 		
 		<div class="input-group">
-		 <input   name="mainPhoto" type="file">
+		 <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
+		 <input  class="form-control" type="number" name="price" placeholder = "Price of the house"> 
 		</div>
 		<br>
 		
 		<div class="input-group">
-		 <input type="submit" value="Upload File" >
+		 <input type="file" name="mainPhoto" >
+		</div>
+		<br>
+		
+		<div class="input-group">
+		 <input type="file" value="Upload File" name="otherPhotos" multiple="true">
 		</div>
 	    <br>
-	    
-	    <div class="input-group">
-		<input name="otherPhotos" type="file" multiple>
-		</div>
-		<br>
-		
-		<div class="input-group">
-		 <input type="submit" value="Upload Files" >
-		</div> <br> <br>
+	
 		
 		<div class="input-group"> 
 		 <span class="input-group-addon"><i class = "fa fa-home fa-lg"></i></span>
@@ -174,6 +166,7 @@
  </div>
  </div>
  </div>
+ 
  <script>
        
        $(document).ready(function(){

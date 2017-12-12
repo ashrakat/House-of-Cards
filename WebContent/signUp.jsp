@@ -89,7 +89,7 @@
 	<center>
     <div class ="row">
         <div class = "col-md-5 col-md-offset-1">
-	  <form action="UserController" method="POST">
+	  <form action="UserController" method="POST" enctype="multipart/form-data">
 	    <div class="input-group">
 			<span class="input-group-addon input-group-sm"><i class = "fa fa-user fa-lg"></i></span>
           <input type="text" class="form-control" name = "name" placeholder="FullName">
@@ -118,6 +118,14 @@
 			<span class="input-group-addon"><i>&#128273;</i></span>
           <input type="password" class="form-control" name = "password" placeholder="Password">
         </div>
+        <br>
+       
+       <div class="input-group">
+       	 <span class="input-group-addon"><i class = "fa fa-file-image-o"></i></span>
+		 <input type="file" value="Upload File" name="pic" >
+		</div>
+	    <br>
+	    
 		  <br>
 		<button value="signUp" name="SignUp" class="btn btn-primary btn-lg">Sign up</button>
 		 
