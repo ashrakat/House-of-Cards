@@ -93,4 +93,8 @@ public class SessionController extends HttpServlet {
 		response.sendRedirect("Home.jsp");
 
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e5d0e2c2cbd8370b1a7eaf0e66a6b3046ca57818
