@@ -16,25 +16,22 @@
 </head>
 <body>
 
-<<<<<<< HEAD
   <div id="sidenav" class="sidenav">
     <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="#"></a>
     <a href="#"></a>
   </div>
+  <div class = "row"> 
   <button id = "menu" type="button" class="btn btn-default circle" onclick="openNav()">
     <span class = "fa"style = "font-weight:bold;">&#9776;</span>
   </button>
    
-=======
->>>>>>> e5d0e2c2cbd8370b1a7eaf0e66a6b3046ca57818
-   <div class = "row"> 
     <div id = "AddforUser" style = "float:right;"> 
     <a href = "AddAdvertise.jsp"><button class = "btn addAdv">Add Advertise </button></a>
     </div>
    </div>
-        
-    <div class = "container">
+    <br>    
+    
    <%
     if (request.getAttribute("houses") == null){
     	RequestDispatcher rd= request.getRequestDispatcher("MainController?showHouses=showHouses");
@@ -45,13 +42,8 @@
 
 		ArrayList<Advertise> houses =(ArrayList<Advertise>) request.getAttribute("houses"); 
         if(houses.size() > 0 ){
-<<<<<<< HEAD
         %>
         <div class = "container" id = "main">
-=======
-        	%>
-        <div class = "container">
->>>>>>> e5d0e2c2cbd8370b1a7eaf0e66a6b3046ca57818
          <div class = "row">
          <%
           for(int i = 0 ; i < houses.size() ; i++){
@@ -81,7 +73,7 @@
        }
      %>
     
-    </div>
+    
     
     
     
@@ -107,7 +99,6 @@
        }
     });
     
-<<<<<<< HEAD
     function openNav() {
         document.getElementById("sidenav").style.width = "180px";
         document.getElementById("main").style.marginLeft = "50px";
@@ -118,8 +109,6 @@
         document.getElementById("main").style.marginLeft = "0px";
       }	
     
-=======
->>>>>>> e5d0e2c2cbd8370b1a7eaf0e66a6b3046ca57818
     </script>
     
     
