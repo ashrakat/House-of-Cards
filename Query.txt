@@ -1,0 +1,104 @@
+CREATE TABLE users (
+ 
+  username varchar(100) NOT NULL,
+ 
+  name varchar(200) NOT NULL,
+   
+  user_type varchar(100) ,
+ 
+  email varchar(100) NOT NULL ,
+  
+  phone varchar(100) NOT NULL,
+ 
+  pass varchar(100) NOT NULL,
+ 
+  pic blob,
+ 
+  PRIMARY KEY (username)
+
+);
+
+CREATE TABLE property (
+ 
+ id int NOT NULL AUTO_INCREMENT,
+ 
+ size int ,
+ 
+ numOfFloor int NOT NULL,
+ 
+ rate double ,
+ 
+ username varchar(100) ,
+ price double ,
+ title varchar(200) , 
+ address varchar(200) , 
+ description varchar(200) ,
+ 
+ forWhat varchar(200) ,
+ 
+ status varchar(200) ,
+ 
+ type varchar(200) ,
+ pic blob,
+ 
+ 
+ PRIMARY KEY (id),
+ 
+ FOREIGN KEY (username) REFERENCES users (username)
+
+);
+
+
+CREATE TABLE comment (
+   body varchar(100) ,
+   date date DEFAULT NULL,
+   username varchar(100) ,
+   id int,
+   FOREIGN KEY (username) REFERENCES users (username),
+   FOREIGN KEY (id) REFERENCES property (id)
+);
+
+CREATE TABLE notfication (
+ 
+  link varchar(100) ,
+ 
+  body varchar(100) ,
+  
+  type varchar(100) ,
+ 
+  username varchar(100) ,
+  readed boolean, 
+  FOREIGN KEY (username) REFERENCES users (username)
+
+);
+
+
+create table picProperty(
+
+  pic blob,
+  
+id int,
+
+  FOREIGN KEY (id) REFERENCES property (id)
+
+);
+
+
+create table preference (
+
+type varchar(200),
+
+statuse varchar(200),
+
+size_min int , 
+
+size_max long,
+
+price_min int ,
+
+price_max long ,
+
+username varchar(100) ,
+deleted boolean,
+FOREIGN KEY (username) REFERENCES users (username)
+);

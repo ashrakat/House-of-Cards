@@ -1,0 +1,182 @@
+.register{
+ font-size:22px;	
+}
+
+
+a{
+ text-decoration:none;
+}
+
+img{
+	margin-top:-10px;
+	max-width:200%;
+	max-height:200%;
+}
+
+.MidImg{
+  max-height:200px;
+  max-weight:100%;	
+  margin-left:30px;
+}
+
+.addAdv , #contactInfoButton , .myAddAdvbtn{
+	background-color:#1c9d95;
+	color: white;
+	}
+	
+.addAdv{
+	width:150px;
+	height:50px;
+}	
+
+.addAdv,  #contactInfoButton{
+	margin-right:25px;
+}
+	
+.addAdv:hover , #contactInfoButton:hover , .myAddAdvbtn:hover{
+	background-color:#1a8f88;
+}
+
+
+.title{
+	color: #e9967a;
+	margin-left:25px;
+}
+
+.declareUserAttr{
+	color: #e9967a;
+}
+
+#menu
+	{
+	margin-left: 20px;	
+	color:white;
+}
+
+.circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 35px;
+  border:none;
+  margin-left:20px;
+}
+.sidenav{
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    background-color: black;
+    overflow-x: hidden;
+    transition: 0.5s;
+	height:100%;
+	padding-top: 50px;
+	}
+  
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover{
+    color:white;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.singleShowTitle{
+	font-size: 25px;
+	font-weight: bold;
+	text-align: center;
+	color: #e9967a;
+}
+.singleShow{
+	font-size: 18px;
+}
+.declareAttr{
+	color: #FFFF99;
+}
+.thumb{
+	border: 1px double grey;
+	background-color: transperant;
+}
+
+#contactInfo{
+	display: none;
+}
+
+.seeAll{
+  text-align: center;
+  padding: 5px;
+  color:white;	
+}
+
+.seeAll:hover{
+	background-color: #282424;
+}
+.thumbnail img {
+    height:200px;
+    width:100%;
+}
+
+.thumbnail .mainImg{
+	max-width:50%;
+}
+
+
+.bkg{
+	background-color:#171a1e;
+}
+
+#AddPref{
+	display: none;
+}
+
+.range_value{
+	max-width:80px;
+}
+
+.selectpicker{
+	max-width:100px;
+}
+
+
+.starRate:hover{
+	color:yellow;
+	text-decoration:none;	
+}
+
+.filterOption{
+	position: center;
+	text-align:center;
+	border:none;
+	width:155px;
+	height:25px;
+	margin-left:5px;
+    background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
+}
+
+.filterOption select {
+   font-size: 16px;
+   height: 25px;
+   width: 155px;
+}
+	
+	
+}
+.filtervalue{
+	width:140px;
+	height:auto;
+}
+
+
+
